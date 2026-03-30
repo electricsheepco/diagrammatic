@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrammatic — Consulting-grade diagrams</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #156082;
+            --mid-teal: #1B7A9F;
+            --soft-teal: #5BA3B8;
+            --light-teal: #EBF4F7;
+            --near-black: #1A1A2E;
+            --slate: #4A5568;
+            --coral: #E07A5F;
+            --amber: #D4A03D;
+            --sage: #4A9E6B;
+            --ui-bg: #f8f9fa;
+            --ui-border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--ui-bg);
+            min-height: 100vh;
+            color: var(--near-black);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--ui-border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .logo h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--near-black);
+        }
+
+        .logo h1 span {
+            color: var(--teal);
+        }
+
+        .logo-tagline {
+            font-size: 11px;
+            color: var(--slate);
+            font-weight: 400;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Main Layout */
+        .main {
+            display: flex;
+            height: calc(100vh - 57px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: white;
+            border-right: 1px solid var(--ui-border);
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section {
+            border-bottom: 1px solid var(--ui-border);
+            padding: 16px;
+        }
+
+        .sidebar-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .section-header h3 {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header .toggle {
+            font-size: 10px;
+            color: var(--slate);
+        }
+
+        /* Layout Grid */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .layout-btn {
+            aspect-ratio: 1.4;
+            border: 2px solid var(--ui-border);
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .layout-btn:hover {
+            border-color: var(--teal);
+            background: var(--light-teal);
+        }
+
+        .layout-btn.active {
+            border-color: var(--teal);
+            background: var(--light-teal);
+            box-shadow: 0 0 0 2px rgba(21, 96, 130, 0.2);
+        }
+
+        .layout-btn svg {
+            width: 100%;
+            height: 70%;
+        }
+
+        .layout-btn span {
+            font-size: 8px;
+            color: var(--slate);
+            margin-top: 2px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--slate);
+            margin-bottom: 4px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--ui-border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 13px;
+            transition: border-color 0.15s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Toggle switch */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .toggle-label {
+            font-size: 13px;
+            color: var(--near-black);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 22px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--teal);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(18px);
+        }
+
+        /* Box Editor */
+        .box-item {
+            background: var(--light-teal);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        .box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .box-number {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--teal);
+        }
+
+        .box-delete {
+            background: none;
+            border: none;
+            color: var(--coral);
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 4px;
+        }
+
+        .box-delete:hover {
+            background: rgba(224, 122, 95, 0.1);
+            border-radius: 4px;
+        }
+
+        /* Color Picker */
+        .color-options {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--near-black);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--near-black);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--mid-teal);
+        }
+
+        .btn-secondary {
+            background: var(--light-teal);
+            color: var(--teal);
+        }
+
+        .btn-secondary:hover {
+            background: #d5e9ef;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Canvas Area */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .canvas-toolbar {
+            background: white;
+            border-bottom: 1px solid var(--ui-border);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .canvas-info {
+            font-size: 12px;
+            color: var(--slate);
+        }
+
+        .canvas-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .preview-wrapper {
+            flex: 1;
+            padding: 24px;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #E8ECEF;
+        }
+
+        .preview-container {
+            background: white;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #preview-container svg {
+            display: block;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--ui-border);
+            background: white;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--slate);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.15s;
+        }
+
+        .tab:hover {
+            color: var(--teal);
+        }
+
+        .tab.active {
+            color: var(--teal);
+            border-bottom-color: var(--teal);
+        }
+
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* Hidden canvas for export */
+        #export-canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">
+            <div class="logo-icon">D</div>
+            <div>
+                <h1>diagrammatic<span>.ai</span></h1>
+            </div>
+        </a>
+        <div class="header-actions">
+            <button class="btn btn-secondary btn-small" onclick="copySVG()">Copy SVG</button>
+            <button class="btn btn-primary btn-small" onclick="downloadPNG()">Download PNG</button>
+        </div>
+    </header>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="frameworks">Frameworks</button>
+        <button class="tab" data-tab="tables">Tables</button>
+        <button class="tab" data-tab="matrix">Matrix Chart</button>
+    </div>
+
+    <main class="main">
+        <!-- ==================== -->
+        <!-- FRAMEWORKS TAB -->
+        <!-- ==================== -->
+        <div class="tab-panel active" id="frameworks-panel">
+            <aside class="sidebar">
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Layout</h3>
+                    </div>
+                    <div class="layout-grid" id="layout-grid">
+                        <!-- Layouts populated by JS -->
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Canvas</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Width</label>
+                            <input type="number" id="canvas-width" value="862" min="400" max="1920">
+                        </div>
+                        <div class="form-group">
+                            <label>Height</label>
+                            <input type="number" id="canvas-height" value="485" min="300" max="1080">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Content</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="title" placeholder="Framework Title">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtitle</label>
+                        <input type="text" id="subtitle" placeholder="Optional subtitle">
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Boxes</h3>
+                        <button class="btn btn-secondary btn-small" onclick="addBox()">+ Add</button>
+                    </div>
+                    <div id="box-list">
+                        <!-- Boxes populated by JS -->
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Export Options</h3>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="show-byline" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        <!-- ==================== -->
+        <!-- TABLES TAB -->
+        <!-- ==================== -->
+        <div class="tab-panel" id="tables-panel">
+            <aside class="sidebar">
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Table Settings</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Rows</label>
+                            <input type="number" id="table-rows" value="4" min="2" max="12">
+                        </div>
+                        <div class="form-group">
+                            <label>Columns</label>
+                            <input type="number" id="table-cols" value="4" min="2" max="8">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Canvas</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Width</label>
+                            <input type="number" id="table-canvas-width" value="862" min="400" max="1920">
+                        </div>
+                        <div class="form-group">
+                            <label>Height</label>
+                            <input type="number" id="table-canvas-height" value="485" min="300" max="1080">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Content</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Table Title</label>
+                        <input type="text" id="table-title" placeholder="Table Title">
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Table Data</h3>
+                    </div>
+                    <div id="table-data-editor">
+                        <!-- Table editor populated by JS -->
+                    </div>
+                    <button class="btn btn-secondary btn-block" style="margin-top: 12px;" onclick="updateTablePreview()">Update Preview</button>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Export Options</h3>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="table-show-byline" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        <!-- ==================== -->
+        <!-- MATRIX TAB -->
+        <!-- ==================== -->
+        <div class="tab-panel" id="matrix-panel">
+            <aside class="sidebar">
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Axes</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>X-Axis Label</label>
+                        <input type="text" id="matrix-x-label" placeholder="e.g., Impact" value="Impact">
+                    </div>
+                    <div class="form-group">
+                        <label>Y-Axis Label</label>
+                        <input type="text" id="matrix-y-label" placeholder="e.g., Effort" value="Effort">
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Canvas</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Width</label>
+                            <input type="number" id="matrix-canvas-width" value="862" min="400" max="1920">
+                        </div>
+                        <div class="form-group">
+                            <label>Height</label>
+                            <input type="number" id="matrix-canvas-height" value="647" min="300" max="1080">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Content</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Chart Title</label>
+                        <input type="text" id="matrix-title" placeholder="Prioritization Matrix">
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Data Points</h3>
+                        <button class="btn btn-secondary btn-small" onclick="addMatrixPoint()">+ Add</button>
+                    </div>
+                    <div id="matrix-points-list">
+                        <!-- Points populated by JS -->
+                    </div>
+                </section>
+
+                <section class="sidebar-section">
+                    <div class="section-header">
+                        <h3>Export Options</h3>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="matrix-show-byline" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
+        <!-- Canvas Area (shared) -->
+        <div class="canvas-area">
+            <div class="canvas-toolbar">
+                <span class="canvas-info" id="canvas-info">862 × 485px · 4:3</span>
+                <div class="canvas-actions">
+                    <button class="btn btn-secondary btn-small" onclick="resetToDefaults()">Reset</button>
+                </div>
+            </div>
+            <div class="preview-wrapper">
+                <div class="preview-container" id="preview-container">
+                    <!-- SVG preview rendered here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <canvas id="export-canvas"></canvas>
+
+    <script>
+        // ============================================
+        // STATE
+        // ============================================
+        const colorOptions = [
+            { id: 'teal', hex: '#156082', name: 'Teal' },
+            { id: 'midTeal', hex: '#1B7A9F', name: 'Mid Teal' },
+            { id: 'softTeal', hex: '#5BA3B8', name: 'Soft Teal' },
+            { id: 'coral', hex: '#E07A5F', name: 'Coral' },
+            { id: 'amber', hex: '#D4A03D', name: 'Amber' },
+            { id: 'sage', hex: '#4A9E6B', name: 'Sage' },
+            { id: 'slate', hex: '#4A5568', name: 'Slate' },
+            { id: 'lightTeal', hex: '#EBF4F7', name: 'Light' }
+        ];
+
+        const layouts = [
+            { id: '2box', name: '2 Box', boxes: 2 },
+            { id: '3box', name: '3 Box', boxes: 3 },
+            { id: '4box', name: '2×2', boxes: 4 },
+            { id: '5box', name: '5 Box', boxes: 5 },
+            { id: '6box', name: '3×2', boxes: 6 },
+            { id: 'pyramid3', name: 'Pyramid', boxes: 3 },
+            { id: 'funnel', name: 'Funnel', boxes: 3 },
+            { id: 'arrow3', name: 'Arrows', boxes: 3 },
+            { id: 'timeline', name: 'Timeline', boxes: 4 },
+            { id: 'comparison', name: 'Compare', boxes: 2 },
+            { id: 'matrix', name: 'Matrix', boxes: 4 }
+        ];
+
+        let state = {
+            layout: '3box',
+            width: 862,
+            height: 485,
+            title: '',
+            subtitle: '',
+            boxes: [
+                { title: 'Step 1', subtitle: '', color: 'teal' },
+                { title: 'Step 2', subtitle: '', color: 'midTeal' },
+                { title: 'Step 3', subtitle: '', color: 'softTeal' }
+            ]
+        };
+
+        let tableState = {
+            width: 862,
+            height: 485,
+            title: '',
+            rows: 4,
+            cols: 4,
+            data: []
+        };
+
+        let matrixState = {
+            width: 862,
+            height: 647,
+            title: '',
+            xLabel: 'Impact',
+            yLabel: 'Effort',
+            points: [
+                { label: 'Initiative A', x: 80, y: 20, size: 40, color: 'teal' },
+                { label: 'Initiative B', x: 30, y: 70, size: 30, color: 'coral' },
+                { label: 'Initiative C', x: 60, y: 50, size: 50, color: 'sage' }
+            ]
+        };
+
+        let currentTab = 'frameworks';
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        function init() {
+            renderLayoutGrid();
+            renderBoxList();
+            initTableData();
+            renderTableEditor();
+            renderMatrixPoints();
+            bindEvents();
+            updatePreview();
+        }
+
+        function bindEvents() {
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+            });
+
+            // Framework inputs
+            document.getElementById('canvas-width').addEventListener('input', e => {
+                state.width = parseInt(e.target.value) || 862;
+                updatePreview();
+            });
+            document.getElementById('canvas-height').addEventListener('input', e => {
+                state.height = parseInt(e.target.value) || 485;
+                updatePreview();
+            });
+            document.getElementById('title').addEventListener('input', e => {
+                state.title = e.target.value;
+                updatePreview();
+            });
+            document.getElementById('subtitle').addEventListener('input', e => {
+                state.subtitle = e.target.value;
+                updatePreview();
+            });
+            document.getElementById('show-byline').addEventListener('change', updatePreview);
+
+            // Table inputs
+            document.getElementById('table-canvas-width').addEventListener('input', e => {
+                tableState.width = parseInt(e.target.value) || 862;
+                updateTablePreview();
+            });
+            document.getElementById('table-canvas-height').addEventListener('input', e => {
+                tableState.height = parseInt(e.target.value) || 485;
+                updateTablePreview();
+            });
+            document.getElementById('table-title').addEventListener('input', e => {
+                tableState.title = e.target.value;
+                updateTablePreview();
+            });
+            document.getElementById('table-rows').addEventListener('change', e => {
+                tableState.rows = parseInt(e.target.value) || 4;
+                initTableData();
+                renderTableEditor();
+                updateTablePreview();
+            });
+            document.getElementById('table-cols').addEventListener('change', e => {
+                tableState.cols = parseInt(e.target.value) || 4;
+                initTableData();
+                renderTableEditor();
+                updateTablePreview();
+            });
+            document.getElementById('table-show-byline').addEventListener('change', updateTablePreview);
+
+            // Matrix inputs
+            document.getElementById('matrix-canvas-width').addEventListener('input', e => {
+                matrixState.width = parseInt(e.target.value) || 862;
+                updateMatrixPreview();
+            });
+            document.getElementById('matrix-canvas-height').addEventListener('input', e => {
+                matrixState.height = parseInt(e.target.value) || 647;
+                updateMatrixPreview();
+            });
+            document.getElementById('matrix-title').addEventListener('input', e => {
+                matrixState.title = e.target.value;
+                updateMatrixPreview();
+            });
+            document.getElementById('matrix-x-label').addEventListener('input', e => {
+                matrixState.xLabel = e.target.value;
+                updateMatrixPreview();
+            });
+            document.getElementById('matrix-y-label').addEventListener('input', e => {
+                matrixState.yLabel = e.target.value;
+                updateMatrixPreview();
+            });
+            document.getElementById('matrix-show-byline').addEventListener('change', updateMatrixPreview);
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+            document.getElementById(`${tab}-panel`).classList.add('active');
+
+            if (tab === 'frameworks') {
+                updatePreview();
+            } else if (tab === 'tables') {
+                updateTablePreview();
+            } else if (tab === 'matrix') {
+                updateMatrixPreview();
+            }
+        }
+
+        // ============================================
+        // FRAMEWORK TAB
+        // ============================================
+        function renderLayoutGrid() {
+            const grid = document.getElementById('layout-grid');
+            grid.innerHTML = layouts.map(layout => `
+                <button class="layout-btn ${state.layout === layout.id ? 'active' : ''}" 
+                        onclick="selectLayout('${layout.id}')">
+                    ${getLayoutIcon(layout.id)}
+                    <span>${layout.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function getLayoutIcon(id) {
+            const icons = {
+                '2box': '<svg viewBox="0 0 40 24"><rect x="2" y="4" width="17" height="16" fill="#156082" rx="2"/><rect x="21" y="4" width="17" height="16" fill="#1B7A9F" rx="2"/></svg>',
+                '3box': '<svg viewBox="0 0 40 24"><rect x="1" y="4" width="11" height="16" fill="#156082" rx="2"/><rect x="14" y="4" width="11" height="16" fill="#1B7A9F" rx="2"/><rect x="27" y="4" width="11" height="16" fill="#5BA3B8" rx="2"/></svg>',
+                '4box': '<svg viewBox="0 0 40 24"><rect x="2" y="2" width="17" height="9" fill="#156082" rx="2"/><rect x="21" y="2" width="17" height="9" fill="#1B7A9F" rx="2"/><rect x="2" y="13" width="17" height="9" fill="#5BA3B8" rx="2"/><rect x="21" y="13" width="17" height="9" fill="#E07A5F" rx="2"/></svg>',
+                '5box': '<svg viewBox="0 0 40 24"><rect x="1" y="4" width="6" height="16" fill="#156082" rx="1"/><rect x="9" y="4" width="6" height="16" fill="#1B7A9F" rx="1"/><rect x="17" y="4" width="6" height="16" fill="#5BA3B8" rx="1"/><rect x="25" y="4" width="6" height="16" fill="#E07A5F" rx="1"/><rect x="33" y="4" width="6" height="16" fill="#D4A03D" rx="1"/></svg>',
+                '6box': '<svg viewBox="0 0 40 24"><rect x="1" y="2" width="11" height="9" fill="#156082" rx="1"/><rect x="14" y="2" width="11" height="9" fill="#1B7A9F" rx="1"/><rect x="27" y="2" width="11" height="9" fill="#5BA3B8" rx="1"/><rect x="1" y="13" width="11" height="9" fill="#E07A5F" rx="1"/><rect x="14" y="13" width="11" height="9" fill="#D4A03D" rx="1"/><rect x="27" y="13" width="11" height="9" fill="#4A9E6B" rx="1"/></svg>',
+                'pyramid3': '<svg viewBox="0 0 40 24"><rect x="14" y="2" width="12" height="6" fill="#156082" rx="1"/><rect x="10" y="10" width="20" height="6" fill="#1B7A9F" rx="1"/><rect x="4" y="18" width="32" height="6" fill="#5BA3B8" rx="1"/></svg>',
+                'funnel': '<svg viewBox="0 0 40 24"><rect x="4" y="2" width="32" height="6" fill="#156082" rx="1"/><rect x="8" y="10" width="24" height="6" fill="#1B7A9F" rx="1"/><rect x="12" y="18" width="16" height="6" fill="#5BA3B8" rx="1"/></svg>',
+                'arrow3': '<svg viewBox="0 0 40 24"><polygon points="2,4 10,4 13,12 10,20 2,20" fill="#156082"/><polygon points="14,4 22,4 25,12 22,20 14,20" fill="#1B7A9F"/><polygon points="26,4 38,4 38,20 26,20" fill="#5BA3B8"/></svg>',
+                'timeline': '<svg viewBox="0 0 40 24"><line x1="4" y1="12" x2="36" y2="12" stroke="#E2E8F0" stroke-width="2"/><circle cx="10" cy="12" r="4" fill="#156082"/><circle cx="20" cy="12" r="4" fill="#1B7A9F"/><circle cx="30" cy="12" r="4" fill="#5BA3B8"/></svg>',
+                'comparison': '<svg viewBox="0 0 40 24"><rect x="2" y="4" width="17" height="16" fill="#156082" rx="2"/><rect x="21" y="4" width="17" height="16" fill="#E07A5F" rx="2"/></svg>',
+                'matrix': '<svg viewBox="0 0 40 24"><line x1="20" y1="2" x2="20" y2="22" stroke="#E2E8F0" stroke-width="1"/><line x1="2" y1="12" x2="38" y2="12" stroke="#E2E8F0" stroke-width="1"/><rect x="4" y="4" width="14" height="6" fill="#156082" rx="1"/><rect x="22" y="4" width="14" height="6" fill="#1B7A9F" rx="1"/><rect x="4" y="14" width="14" height="6" fill="#5BA3B8" rx="1"/><rect x="22" y="14" width="14" height="6" fill="#E07A5F" rx="1"/></svg>'
+            };
+            return icons[id] || icons['3box'];
+        }
+
+        function selectLayout(layoutId) {
+            state.layout = layoutId;
+            const layout = layouts.find(l => l.id === layoutId);
+            
+            // Adjust boxes to match layout
+            while (state.boxes.length < layout.boxes) {
+                const colorIndex = state.boxes.length % colorOptions.length;
+                state.boxes.push({ 
+                    title: `Box ${state.boxes.length + 1}`, 
+                    subtitle: '', 
+                    color: colorOptions[colorIndex].id 
+                });
+            }
+            state.boxes = state.boxes.slice(0, layout.boxes);
+            
+            renderLayoutGrid();
+            renderBoxList();
+            updatePreview();
+        }
+
+        function renderBoxList() {
+            const list = document.getElementById('box-list');
+            list.innerHTML = state.boxes.map((box, i) => `
+                <div class="box-item">
+                    <div class="box-header">
+                        <span class="box-number">Box ${i + 1}</span>
+                        ${state.boxes.length > 2 ? `<button class="box-delete" onclick="deleteBox(${i})">×</button>` : ''}
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" value="${escapeHtml(box.title)}" 
+                               onchange="updateBox(${i}, 'title', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtitle</label>
+                        <input type="text" value="${escapeHtml(box.subtitle)}" 
+                               onchange="updateBox(${i}, 'subtitle', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Color</label>
+                        <div class="color-options">
+                            ${colorOptions.map(c => `
+                                <div class="color-option ${box.color === c.id ? 'active' : ''}" 
+                                     style="background: ${c.hex}"
+                                     onclick="updateBox(${i}, 'color', '${c.id}')"
+                                     title="${c.name}"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateBox(index, prop, value) {
+            state.boxes[index][prop] = value;
+            if (prop === 'color') renderBoxList();
+            updatePreview();
+        }
+
+        function addBox() {
+            const colorIndex = state.boxes.length % colorOptions.length;
+            state.boxes.push({ 
+                title: `Box ${state.boxes.length + 1}`, 
+                subtitle: '', 
+                color: colorOptions[colorIndex].id 
+            });
+            renderBoxList();
+            updatePreview();
+        }
+
+        function deleteBox(index) {
+            if (state.boxes.length > 2) {
+                state.boxes.splice(index, 1);
+                renderBoxList();
+                updatePreview();
+            }
+        }
+
+        // ============================================
+        // TABLE TAB
+        // ============================================
+        function initTableData() {
+            tableState.data = [];
+            for (let r = 0; r < tableState.rows; r++) {
+                const row = [];
+                for (let c = 0; c < tableState.cols; c++) {
+                    if (r === 0) {
+                        row.push({ text: `Header ${c + 1}`, isHeader: true });
+                    } else {
+                        row.push({ text: `Cell ${r},${c + 1}`, isHeader: false });
+                    }
+                }
+                tableState.data.push(row);
+            }
+        }
+
+        function renderTableEditor() {
+            const editor = document.getElementById('table-data-editor');
+            let html = '<div style="overflow-x: auto;"><table style="width: 100%; border-collapse: collapse; font-size: 11px;">';
+            
+            for (let r = 0; r < tableState.rows; r++) {
+                html += '<tr>';
+                for (let c = 0; c < tableState.cols; c++) {
+                    const cell = tableState.data[r]?.[c] || { text: '', isHeader: false };
+                    html += `<td style="padding: 2px;">
+                        <input type="text" value="${escapeHtml(cell.text)}" 
+                               style="width: 100%; padding: 4px; font-size: 11px; border: 1px solid #e2e8f0; border-radius: 3px;"
+                               onchange="updateTableCell(${r}, ${c}, this.value)">
+                    </td>`;
+                }
+                html += '</tr>';
+            }
+            
+            html += '</table></div>';
+            editor.innerHTML = html;
+        }
+
+        function updateTableCell(row, col, value) {
+            if (tableState.data[row] && tableState.data[row][col]) {
+                tableState.data[row][col].text = value;
+            }
+        }
+
+        function updateTablePreview() {
+            const showByline = document.getElementById('table-show-byline').checked;
+            const svg = generateTableSVG(showByline);
+            const container = document.getElementById('preview-container');
+            container.innerHTML = svg;
+            
+            const svgEl = container.querySelector('svg');
+            if (svgEl) {
+                svgEl.setAttribute('width', tableState.width);
+                svgEl.setAttribute('height', tableState.height);
+                svgEl.style.display = 'block';
+                svgEl.style.maxWidth = '100%';
+                svgEl.style.height = 'auto';
+            }
+
+            document.getElementById('canvas-info').textContent = `${tableState.width} × ${tableState.height}px`;
+        }
+
+        function generateTableSVG(showByline = true) {
+            const w = tableState.width;
+            const h = tableState.height;
+            const padding = 40;
+            const titleHeight = tableState.title ? 50 : 0;
+            const bylineHeight = showByline ? 24 : 0;
+            
+            const tableTop = padding + titleHeight;
+            const tableHeight = h - tableTop - padding - bylineHeight;
+            const tableWidth = w - padding * 2;
+            
+            const rowHeight = tableHeight / tableState.rows;
+            const colWidth = tableWidth / tableState.cols;
+
+            let svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .table-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; fill: #1A1A2E; }
+    .header-cell { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; fill: white; }
+    .body-cell { font-family: 'Inter', sans-serif; font-size: 12px; fill: #1A1A2E; }
+    .byline { font-family: 'Inter', sans-serif; font-size: 10px; fill: #5BA3B8; }
+  </style>
+  <rect width="${w}" height="${h}" fill="white"/>
+`;
+
+            // Title
+            if (tableState.title) {
+                svg += `  <text x="${w/2}" y="${padding + 24}" text-anchor="middle" class="table-title">${escapeXml(tableState.title)}</text>\n`;
+            }
+
+            // Table
+            for (let r = 0; r < tableState.rows; r++) {
+                const y = tableTop + r * rowHeight;
+                
+                for (let c = 0; c < tableState.cols; c++) {
+                    const x = padding + c * colWidth;
+                    const cell = tableState.data[r]?.[c] || { text: '', isHeader: false };
+                    
+                    if (r === 0) {
+                        // Header row
+                        svg += `  <rect x="${x}" y="${y}" width="${colWidth}" height="${rowHeight}" fill="#156082"/>\n`;
+                        svg += `  <text x="${x + colWidth/2}" y="${y + rowHeight/2 + 5}" text-anchor="middle" class="header-cell">${escapeXml(cell.text)}</text>\n`;
+                    } else {
+                        // Body rows
+                        const fillColor = r % 2 === 0 ? '#F8FAFC' : 'white';
+                        svg += `  <rect x="${x}" y="${y}" width="${colWidth}" height="${rowHeight}" fill="${fillColor}" stroke="#E2E8F0"/>\n`;
+                        svg += `  <text x="${x + colWidth/2}" y="${y + rowHeight/2 + 5}" text-anchor="middle" class="body-cell">${escapeXml(cell.text)}</text>\n`;
+                    }
+                }
+            }
+
+            // Byline
+            if (showByline) {
+                svg += `  <text x="${w - padding}" y="${h - 10}" text-anchor="end" class="byline">diagrammatic.ai</text>\n`;
+            }
+
+            svg += '</svg>';
+            return svg;
+        }
+
+        // ============================================
+        // MATRIX TAB
+        // ============================================
+        function renderMatrixPoints() {
+            const list = document.getElementById('matrix-points-list');
+            list.innerHTML = matrixState.points.map((point, i) => `
+                <div class="box-item">
+                    <div class="box-header">
+                        <span class="box-number">Point ${i + 1}</span>
+                        ${matrixState.points.length > 1 ? `<button class="box-delete" onclick="deleteMatrixPoint(${i})">×</button>` : ''}
+                    </div>
+                    <div class="form-group">
+                        <label>Label</label>
+                        <input type="text" value="${escapeHtml(point.label)}" 
+                               onchange="updateMatrixPoint(${i}, 'label', this.value)">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>X (0-100)</label>
+                            <input type="number" value="${point.x}" min="0" max="100"
+                                   onchange="updateMatrixPoint(${i}, 'x', parseInt(this.value))">
+                        </div>
+                        <div class="form-group">
+                            <label>Y (0-100)</label>
+                            <input type="number" value="${point.y}" min="0" max="100"
+                                   onchange="updateMatrixPoint(${i}, 'y', parseInt(this.value))">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Size</label>
+                            <input type="number" value="${point.size}" min="20" max="80"
+                                   onchange="updateMatrixPoint(${i}, 'size', parseInt(this.value))">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Color</label>
+                        <div class="color-options">
+                            ${colorOptions.slice(0, 6).map(c => `
+                                <div class="color-option ${point.color === c.id ? 'active' : ''}" 
+                                     style="background: ${c.hex}"
+                                     onclick="updateMatrixPoint(${i}, 'color', '${c.id}')"
+                                     title="${c.name}"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateMatrixPoint(index, prop, value) {
+            matrixState.points[index][prop] = value;
+            if (prop === 'color') renderMatrixPoints();
+            updateMatrixPreview();
+        }
+
+        function addMatrixPoint() {
+            const colorIndex = matrixState.points.length % 6;
+            matrixState.points.push({
+                label: `Item ${matrixState.points.length + 1}`,
+                x: 50,
+                y: 50,
+                size: 35,
+                color: colorOptions[colorIndex].id
+            });
+            renderMatrixPoints();
+            updateMatrixPreview();
+        }
+
+        function deleteMatrixPoint(index) {
+            if (matrixState.points.length > 1) {
+                matrixState.points.splice(index, 1);
+                renderMatrixPoints();
+                updateMatrixPreview();
+            }
+        }
+
+        function updateMatrixPreview() {
+            const showByline = document.getElementById('matrix-show-byline').checked;
+            const svg = generateMatrixSVG(showByline);
+            const container = document.getElementById('preview-container');
+            container.innerHTML = svg;
+            
+            const svgEl = container.querySelector('svg');
+            if (svgEl) {
+                svgEl.setAttribute('width', matrixState.width);
+                svgEl.setAttribute('height', matrixState.height);
+                svgEl.style.display = 'block';
+                svgEl.style.maxWidth = '100%';
+                svgEl.style.height = 'auto';
+            }
+
+            document.getElementById('canvas-info').textContent = `${matrixState.width} × ${matrixState.height}px · 4:3`;
+        }
+
+        function generateMatrixSVG(showByline = true) {
+            const w = matrixState.width;
+            const h = matrixState.height;
+            const padding = 60;
+            const titleHeight = matrixState.title ? 50 : 0;
+            const bylineHeight = showByline ? 24 : 0;
+            
+            const chartLeft = padding + 30;
+            const chartTop = padding + titleHeight;
+            const chartWidth = w - chartLeft - padding;
+            const chartHeight = h - chartTop - padding - bylineHeight - 30;
+
+            let svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .chart-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; fill: #1A1A2E; }
+    .axis-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #4A5568; }
+    .point-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; fill: #1A1A2E; }
+    .byline { font-family: 'Inter', sans-serif; font-size: 10px; fill: #5BA3B8; }
+  </style>
+  <rect width="${w}" height="${h}" fill="white"/>
+`;
+
+            // Title
+            if (matrixState.title) {
+                svg += `  <text x="${w/2}" y="${padding + 24}" text-anchor="middle" class="chart-title">${escapeXml(matrixState.title)}</text>\n`;
+            }
+
+            // Axes
+            svg += `  <line x1="${chartLeft}" y1="${chartTop + chartHeight}" x2="${chartLeft + chartWidth}" y2="${chartTop + chartHeight}" stroke="#E2E8F0" stroke-width="2"/>\n`;
+            svg += `  <line x1="${chartLeft}" y1="${chartTop}" x2="${chartLeft}" y2="${chartTop + chartHeight}" stroke="#E2E8F0" stroke-width="2"/>\n`;
+
+            // Axis labels
+            svg += `  <text x="${chartLeft + chartWidth/2}" y="${chartTop + chartHeight + 35}" text-anchor="middle" class="axis-label">${escapeXml(matrixState.xLabel)} →</text>\n`;
+            svg += `  <text x="${chartLeft - 25}" y="${chartTop + chartHeight/2}" text-anchor="middle" transform="rotate(-90, ${chartLeft - 25}, ${chartTop + chartHeight/2})" class="axis-label">${escapeXml(matrixState.yLabel)} →</text>\n`;
+
+            // Grid lines (light)
+            svg += `  <line x1="${chartLeft + chartWidth/2}" y1="${chartTop}" x2="${chartLeft + chartWidth/2}" y2="${chartTop + chartHeight}" stroke="#F0F0F0" stroke-width="1" stroke-dasharray="4,4"/>\n`;
+            svg += `  <line x1="${chartLeft}" y1="${chartTop + chartHeight/2}" x2="${chartLeft + chartWidth}" y2="${chartTop + chartHeight/2}" stroke="#F0F0F0" stroke-width="1" stroke-dasharray="4,4"/>\n`;
+
+            // Points (render in reverse order so first points appear on top)
+            [...matrixState.points].reverse().forEach(point => {
+                const cx = chartLeft + (point.x / 100) * chartWidth;
+                const cy = chartTop + chartHeight - (point.y / 100) * chartHeight;
+                const color = colorOptions.find(c => c.id === point.color)?.hex || '#156082';
+                const r = point.size / 2;
+
+                svg += `  <circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}"/>\n`;
+                svg += `  <text x="${cx}" y="${cy - r - 8}" text-anchor="middle" class="point-label">${escapeXml(point.label)}</text>\n`;
+            });
+
+            // Byline
+            if (showByline) {
+                svg += `  <text x="${w - padding}" y="${h - 10}" text-anchor="end" class="byline">diagrammatic.ai</text>\n`;
+            }
+
+            svg += '</svg>';
+            return svg;
+        }
+
+        // ============================================
+        // FRAMEWORK SVG GENERATION
+        // ============================================
+        function generateSVG() {
+            const showByline = document.getElementById('show-byline').checked;
+            const w = state.width;
+            const h = state.height;
+            const padding = 40;
+            const titleHeight = state.title ? (state.subtitle ? 70 : 50) : 0;
+            const bylineHeight = showByline ? 24 : 0;
+            
+            const boxTitleSize = Math.min(16, Math.max(12, w / 60));
+
+            let svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 600; fill: #1A1A2E; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 14px; fill: #4A5568; }
+    .box-title { font-family: 'Inter', sans-serif; font-size: ${boxTitleSize}px; font-weight: 600; fill: white; }
+    .box-subtitle { font-family: 'Inter', sans-serif; font-size: ${boxTitleSize - 2}px; fill: rgba(255,255,255,0.85); }
+    .byline { font-family: 'Inter', sans-serif; font-size: 10px; fill: #5BA3B8; }
+  </style>
+  <rect width="${w}" height="${h}" fill="white"/>
+`;
+
+            // Title
+            if (state.title) {
+                svg += `  <text x="${w/2}" y="${padding + 20}" text-anchor="middle" class="title">${escapeXml(state.title)}</text>\n`;
+                if (state.subtitle) {
+                    svg += `  <text x="${w/2}" y="${padding + 45}" text-anchor="middle" class="subtitle">${escapeXml(state.subtitle)}</text>\n`;
+                }
+            }
+
+            // Render layout
+            const contentTop = padding + titleHeight;
+            const contentHeight = h - contentTop - padding - bylineHeight;
+            svg += renderLayout(padding, contentTop, w - padding * 2, contentHeight, boxTitleSize);
+
+            // Byline
+            if (showByline) {
+                svg += `  <text x="${w - padding}" y="${h - 10}" text-anchor="end" class="byline">diagrammatic.ai</text>\n`;
+            }
+
+            svg += '</svg>';
+            return svg;
+        }
+
+        function renderLayout(x, y, w, h, boxTitleSize) {
+            const boxes = state.boxes;
+            const gap = 12;
+            let svg = '';
+
+            switch (state.layout) {
+                case '2box': {
+                    const bw = (w - gap) / 2;
+                    boxes.forEach((box, i) => {
+                        svg += renderBox(x + i * (bw + gap), y, bw, h, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case '3box': {
+                    const bw = (w - gap * 2) / 3;
+                    boxes.forEach((box, i) => {
+                        svg += renderBox(x + i * (bw + gap), y, bw, h, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case '4box': {
+                    const bw = (w - gap) / 2;
+                    const bh = (h - gap) / 2;
+                    boxes.forEach((box, i) => {
+                        const col = i % 2;
+                        const row = Math.floor(i / 2);
+                        svg += renderBox(x + col * (bw + gap), y + row * (bh + gap), bw, bh, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case '5box': {
+                    const bw = (w - gap * 4) / 5;
+                    boxes.forEach((box, i) => {
+                        svg += renderBox(x + i * (bw + gap), y, bw, h, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case '6box': {
+                    const bw = (w - gap * 2) / 3;
+                    const bh = (h - gap) / 2;
+                    boxes.forEach((box, i) => {
+                        const col = i % 3;
+                        const row = Math.floor(i / 3);
+                        svg += renderBox(x + col * (bw + gap), y + row * (bh + gap), bw, bh, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case 'pyramid3': {
+                    const tierHeight = h / 3;
+                    boxes.forEach((box, i) => {
+                        const tierWidth = w * (0.4 + i * 0.3);
+                        const tx = x + (w - tierWidth) / 2;
+                        const ty = y + i * tierHeight;
+                        svg += renderBox(tx, ty + 3, tierWidth, tierHeight - 6, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case 'funnel': {
+                    const tierHeight = h / 3;
+                    boxes.forEach((box, i) => {
+                        const tierWidth = w * (1 - i * 0.25);
+                        const tx = x + (w - tierWidth) / 2;
+                        const ty = y + i * tierHeight;
+                        svg += renderBox(tx, ty + 3, tierWidth, tierHeight - 6, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case 'arrow3': {
+                    const arrowWidth = (w - gap * 2) / 3;
+                    boxes.forEach((box, i) => {
+                        svg += renderArrow(x + i * (arrowWidth + gap), y, arrowWidth, h, box, i === boxes.length - 1, boxTitleSize);
+                    });
+                    break;
+                }
+                case 'timeline': {
+                    const nodeSpacing = w / (boxes.length + 1);
+                    const lineY = y + h / 2;
+                    const nodeRadius = Math.min(30, h / 4);
+                    
+                    svg += `  <line x1="${x}" y1="${lineY}" x2="${x + w}" y2="${lineY}" stroke="#E2E8F0" stroke-width="3"/>\n`;
+                    
+                    boxes.forEach((box, i) => {
+                        const nx = x + nodeSpacing * (i + 1);
+                        const color = colorOptions.find(c => c.id === box.color)?.hex || '#156082';
+                        
+                        svg += `  <circle cx="${nx}" cy="${lineY}" r="${nodeRadius}" fill="${color}"/>\n`;
+                        svg += `  <text x="${nx}" y="${lineY - nodeRadius - 12}" text-anchor="middle" class="box-title" style="fill: #1A1A2E">${escapeXml(box.title)}</text>\n`;
+                        if (box.subtitle) {
+                            svg += `  <text x="${nx}" y="${lineY + nodeRadius + 18}" text-anchor="middle" class="box-subtitle" style="fill: #4A5568">${escapeXml(box.subtitle)}</text>\n`;
+                        }
+                    });
+                    break;
+                }
+                case 'comparison': {
+                    const bw = (w - gap) / 2;
+                    boxes.forEach((box, i) => {
+                        svg += renderBox(x + i * (bw + gap), y, bw, h, box, boxTitleSize);
+                    });
+                    break;
+                }
+                case 'matrix': {
+                    const midX = x + w / 2;
+                    const midY = y + h / 2;
+                    const quadW = (w - gap) / 2;
+                    const quadH = (h - gap) / 2;
+                    
+                    svg += `  <line x1="${midX}" y1="${y}" x2="${midX}" y2="${y + h}" stroke="#E2E8F0" stroke-width="2"/>\n`;
+                    svg += `  <line x1="${x}" y1="${midY}" x2="${x + w}" y2="${midY}" stroke="#E2E8F0" stroke-width="2"/>\n`;
+                    
+                    boxes.forEach((box, i) => {
+                        const col = i % 2;
+                        const row = Math.floor(i / 2);
+                        svg += renderBox(x + col * (quadW + gap), y + row * (quadH + gap), quadW, quadH, box, boxTitleSize);
+                    });
+                    break;
+                }
+            }
+
+            return svg;
+        }
+
+        function renderBox(x, y, w, h, box, titleSize) {
+            const color = colorOptions.find(c => c.id === box.color)?.hex || '#156082';
+            const centerX = x + w / 2;
+            const centerY = y + h / 2;
+            
+            let svg = `  <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}" rx="6"/>\n`;
+            
+            if (box.subtitle) {
+                svg += `  <text x="${centerX}" y="${centerY - 4}" text-anchor="middle" class="box-title">${escapeXml(box.title)}</text>\n`;
+                svg += `  <text x="${centerX}" y="${centerY + 14}" text-anchor="middle" class="box-subtitle">${escapeXml(box.subtitle)}</text>\n`;
+            } else {
+                svg += `  <text x="${centerX}" y="${centerY + 5}" text-anchor="middle" class="box-title">${escapeXml(box.title)}</text>\n`;
+            }
+            
+            return svg;
+        }
+
+        function renderArrow(x, y, w, h, box, isLast, titleSize) {
+            const color = colorOptions.find(c => c.id === box.color)?.hex || '#156082';
+            const centerX = x + w / 2;
+            const centerY = y + h / 2;
+            const arrowHead = 20;
+            
+            const points = isLast 
+                ? `${x},${y} ${x + w},${y} ${x + w},${y + h} ${x},${y + h}`
+                : `${x},${y} ${x + w - arrowHead},${y} ${x + w},${y + h/2} ${x + w - arrowHead},${y + h} ${x},${y + h}`;
+            
+            let svg = `  <polygon points="${points}" fill="${color}"/>\n`;
+            
+            if (box.subtitle) {
+                svg += `  <text x="${centerX}" y="${centerY - 4}" text-anchor="middle" class="box-title">${escapeXml(box.title)}</text>\n`;
+                svg += `  <text x="${centerX}" y="${centerY + 14}" text-anchor="middle" class="box-subtitle">${escapeXml(box.subtitle)}</text>\n`;
+            } else {
+                svg += `  <text x="${centerX}" y="${centerY + 5}" text-anchor="middle" class="box-title">${escapeXml(box.title)}</text>\n`;
+            }
+            
+            return svg;
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
+        function escapeXml(str) {
+            return String(str).replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;')
+                      .replace(/'/g, '&apos;');
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;');
+        }
+
+        // ============================================
+        // PREVIEW & EXPORT
+        // ============================================
+        function updatePreview() {
+            const svg = generateSVG();
+            const container = document.getElementById('preview-container');
+            container.innerHTML = svg;
+            
+            const svgEl = container.querySelector('svg');
+            if (svgEl) {
+                svgEl.setAttribute('width', state.width);
+                svgEl.setAttribute('height', state.height);
+                svgEl.style.display = 'block';
+                svgEl.style.maxWidth = '100%';
+                svgEl.style.height = 'auto';
+            }
+
+            document.getElementById('canvas-info').textContent = `${state.width} × ${state.height}px`;
+        }
+
+        function copySVG() {
+            let svg;
+            if (currentTab === 'frameworks') {
+                svg = generateSVG();
+            } else if (currentTab === 'tables') {
+                const showByline = document.getElementById('table-show-byline').checked;
+                svg = generateTableSVG(showByline);
+            } else {
+                const showByline = document.getElementById('matrix-show-byline').checked;
+                svg = generateMatrixSVG(showByline);
+            }
+            navigator.clipboard.writeText(svg).then(() => {
+                alert('SVG code copied to clipboard!');
+            });
+        }
+
+        function downloadPNG() {
+            let svg, width, height, title;
+            
+            if (currentTab === 'frameworks') {
+                svg = generateSVG();
+                width = state.width;
+                height = state.height;
+                title = document.getElementById('title').value || 'framework';
+            } else if (currentTab === 'tables') {
+                const showByline = document.getElementById('table-show-byline').checked;
+                svg = generateTableSVG(showByline);
+                width = tableState.width;
+                height = tableState.height;
+                title = document.getElementById('table-title').value || 'table';
+            } else {
+                const showByline = document.getElementById('matrix-show-byline').checked;
+                svg = generateMatrixSVG(showByline);
+                width = matrixState.width;
+                height = matrixState.height;
+                title = document.getElementById('matrix-title').value || 'matrix';
+            }
+
+            const canvas = document.getElementById('export-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 2x resolution for Retina
+            canvas.width = width * 2;
+            canvas.height = height * 2;
+            
+            const img = new Image();
+            const svgBlob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(svgBlob);
+            
+            img.onload = function() {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                URL.revokeObjectURL(url);
+                
+                const pngUrl = canvas.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = pngUrl;
+                a.download = `diagrammatic-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`;
+                a.click();
+            };
+            
+            img.src = url;
+        }
+
+        function resetToDefaults() {
+            if (currentTab === 'frameworks') {
+                state = {
+                    layout: '3box',
+                    width: 862,
+                    height: 485,
+                    title: '',
+                    subtitle: '',
+                    boxes: [
+                        { title: 'Step 1', subtitle: '', color: 'teal' },
+                        { title: 'Step 2', subtitle: '', color: 'midTeal' },
+                        { title: 'Step 3', subtitle: '', color: 'softTeal' }
+                    ]
+                };
+                document.getElementById('canvas-width').value = 862;
+                document.getElementById('canvas-height').value = 485;
+                document.getElementById('title').value = '';
+                document.getElementById('subtitle').value = '';
+                renderLayoutGrid();
+                renderBoxList();
+                updatePreview();
+            } else if (currentTab === 'tables') {
+                tableState = { width: 862, height: 485, title: '', rows: 4, cols: 4, data: [] };
+                document.getElementById('table-canvas-width').value = 862;
+                document.getElementById('table-canvas-height').value = 485;
+                document.getElementById('table-title').value = '';
+                document.getElementById('table-rows').value = 4;
+                document.getElementById('table-cols').value = 4;
+                initTableData();
+                renderTableEditor();
+                updateTablePreview();
+            } else {
+                matrixState = {
+                    width: 862,
+                    height: 647,
+                    title: '',
+                    xLabel: 'Impact',
+                    yLabel: 'Effort',
+                    points: [
+                        { label: 'Initiative A', x: 80, y: 20, size: 40, color: 'teal' },
+                        { label: 'Initiative B', x: 30, y: 70, size: 30, color: 'coral' },
+                        { label: 'Initiative C', x: 60, y: 50, size: 50, color: 'sage' }
+                    ]
+                };
+                document.getElementById('matrix-canvas-width').value = 862;
+                document.getElementById('matrix-canvas-height').value = 647;
+                document.getElementById('matrix-title').value = '';
+                document.getElementById('matrix-x-label').value = 'Impact';
+                document.getElementById('matrix-y-label').value = 'Effort';
+                renderMatrixPoints();
+                updateMatrixPreview();
+            }
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', init);
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            init();
+        }
+    </script>
+</body>
+</html>

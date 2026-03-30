@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrammatic — Consulting-grade diagrams. Instantly.</title>
+  <meta name="description" content="The frameworks McKinsey uses. The speed napkin.ai promises. No design skills required.">
+  <meta property="og:title" content="Diagrammatic — Consulting-grade diagrams. Instantly.">
+  <meta property="og:description" content="Stop rebuilding the same BCG matrix in PowerPoint. Pick a framework, fill in your content, export in seconds.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://diagrammatic.ai">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --teal: #156082;
+      --teal-mid: #1B7A9F;
+      --teal-soft: #5BA3B8;
+      --teal-light: #EBF4F7;
+      --text: #1A1A2E;
+      --text-muted: #4A5568;
+      --bg: #FAFBFC;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--text);
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 2rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--teal);
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span {
+      color: var(--teal);
+    }
+
+    .hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Email form */
+    .email-form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 440px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .email-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: 0.875rem 1rem;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-form input:focus {
+      border-color: var(--teal);
+    }
+
+    .email-form button {
+      padding: 0.875rem 1.75rem;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .email-form button:hover {
+      background: var(--teal-mid);
+    }
+
+    .form-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* How it works */
+    .how-it-works {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .how-it-works h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 3rem;
+      font-weight: 600;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .step-number {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: var(--teal-light);
+      color: var(--teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .step h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Framework grid */
+    .frameworks {
+      background: var(--white);
+      padding: 4rem 2rem;
+    }
+
+    .frameworks-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .frameworks h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .frameworks .subhead {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .framework-item {
+      background: var(--teal-light);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--teal);
+      text-align: center;
+    }
+
+    /* Who it's for */
+    .audience {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .audience h2 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    .audience-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .audience-item {
+      background: var(--white);
+      border: 1px solid #E2E8F0;
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* CTA */
+    .cta {
+      background: var(--teal);
+      color: var(--white);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .cta .email-form input {
+      background: var(--white);
+      border-color: transparent;
+    }
+
+    .cta .email-form button {
+      background: var(--text);
+    }
+
+    .cta .email-form button:hover {
+      background: #2D2D44;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--teal);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero {
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">diagrammatic<span>.ai</span></a>
+    <nav>
+      <a href="#frameworks">Frameworks</a>
+      <a href="/app">Try It</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Consulting-grade diagrams.<br><span>Instantly.</span></h1>
+    <p class="subtitle">The frameworks McKinsey uses. The speed napkin.ai promises. No design skills required.</p>
+    
+    <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" placeholder="you@company.com" required>
+      <button type="submit">Get Early Access</button>
+    </form>
+    <p class="form-note">Free while in beta. No credit card required.</p>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Choose a framework</h3>
+        <p>BCG matrix, value chain, maturity curve, bubble chart — pick from 20+ consulting standards.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Add your content</h3>
+        <p>Labels, data, colors. We handle the layout and visual hierarchy.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Export anywhere</h3>
+        <p>PNG, SVG, PPTX. Drop into your deck, report, or publication.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="frameworks" id="frameworks">
+    <div class="frameworks-inner">
+      <h2>The Framework Library</h2>
+      <p class="subhead">The classics, ready in seconds.</p>
+      <div class="framework-grid">
+        <div class="framework-item">BCG Matrix</div>
+        <div class="framework-item">McKinsey 7S</div>
+        <div class="framework-item">Value Chain</div>
+        <div class="framework-item">Prioritization Matrix</div>
+        <div class="framework-item">Maturity Curve</div>
+        <div class="framework-item">Three Horizons</div>
+        <div class="framework-item">SWOT</div>
+        <div class="framework-item">Ansoff Matrix</div>
+        <div class="framework-item">RACI Matrix</div>
+        <div class="framework-item">Pyramid / MECE</div>
+        <div class="framework-item">Stakeholder Map</div>
+        <div class="framework-item">Kano Model</div>
+        <div class="framework-item">Decision Tree</div>
+        <div class="framework-item">Competitive Map</div>
+        <div class="framework-item">Process Flow</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="audience">
+    <h2>Built for people who think in frameworks</h2>
+    <div class="audience-list">
+      <span class="audience-item">Solo consultants</span>
+      <span class="audience-item">Strategy teams</span>
+      <span class="audience-item">GCC practitioners</span>
+      <span class="audience-item">MBA students</span>
+      <span class="audience-item">Transformation leads</span>
+      <span class="audience-item">Analysts</span>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to ship better diagrams?</h2>
+    <p>Join the beta and never rebuild a BCG matrix from scratch again.</p>
+    <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="email" name="email" placeholder="you@company.com" required>
+      <button type="submit">Get Early Access</button>
+    </form>
+  </section>
+
+  <footer>
+    <span>© 2026 Diagrammatic. An <a href="https://electricsheepco.com">Electric Sheep</a> product.</span>
+    <span>
+      <a href="mailto:hello@diagrammatic.ai">Contact</a>
+    </span>
+  </footer>
+
+</body>
+</html>
