@@ -21,7 +21,7 @@ const layouts = [
   { id: 'pyramid3',   name: 'Pyramid',  boxes: 3 },
   { id: 'funnel',     name: 'Funnel',   boxes: 3 },
   { id: 'arrow3',     name: 'Arrows',   boxes: 3 },
-  { id: 'timeline',   name: 'Timeline', boxes: 4 },
+  { id: 'timeline',   name: 'Timeline', boxes: 3 },
   { id: 'comparison', name: 'Compare',  boxes: 2 },
   { id: 'matrix',     name: 'Matrix',   boxes: 4 }
 ];
@@ -453,16 +453,16 @@ function renderMatrixPoints() {
       <div class="form-row">
         <div class="form-group">
           <label>X (0–100)</label>
-          <input type="number" value="${pt.x}" min="0" max="100" oninput="updateMatrixPoint(${i},'x',parseInt(this.value))">
+          <input type="number" value="${pt.x}" min="0" max="100" oninput="updateMatrixPoint(${i},'x',parseInt(this.value)||0)">
         </div>
         <div class="form-group">
           <label>Y (0–100)</label>
-          <input type="number" value="${pt.y}" min="0" max="100" oninput="updateMatrixPoint(${i},'y',parseInt(this.value))">
+          <input type="number" value="${pt.y}" min="0" max="100" oninput="updateMatrixPoint(${i},'y',parseInt(this.value)||0)">
         </div>
       </div>
       <div class="form-group">
         <label>Size</label>
-        <input type="number" value="${pt.size}" min="20" max="80" oninput="updateMatrixPoint(${i},'size',parseInt(this.value))">
+        <input type="number" value="${pt.size}" min="20" max="80" oninput="updateMatrixPoint(${i},'size',parseInt(this.value)||20)">
       </div>
       <div class="form-group">
         <label>Color</label>
@@ -703,7 +703,9 @@ function copySVG() {
   if (currentTab === 'frameworks')    svg = generateSVG();
   else if (currentTab === 'tables')   svg = generateTableSVG(document.getElementById('table-show-byline').checked);
   else                                svg = generateMatrixSVG(document.getElementById('matrix-show-byline').checked);
-  navigator.clipboard.writeText(svg).then(() => showToast('SVG copied to clipboard'));
+  navigator.clipboard.writeText(svg)
+    .then(() => showToast('SVG copied to clipboard'))
+    .catch(() => showToast('Copy failed — try a different browser'));
 }
 
 function downloadPNG() {
@@ -734,6 +736,10 @@ function downloadPNG() {
     a.href = canvas.toDataURL('image/png');
     a.download = `diagrammatic-${title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.png`;
     a.click();
+  };
+  img.onerror = function () {
+    URL.revokeObjectURL(url);
+    showToast('Export failed — SVG could not be rendered');
   };
   img.src = url;
 }
