@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrammatic — Consulting-grade diagrams</title>
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <a href="/" class="logo">
+      <div class="logo-icon">D</div>
+      <span class="logo-wordmark">diagrammatic<span>.ai</span></span>
+    </a>
+    <div class="header-actions">
+      <button class="btn btn-secondary btn-small" onclick="copySVG()">Copy SVG</button>
+      <button class="btn btn-primary btn-small" onclick="downloadPNG()">Download PNG</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="frameworks">Frameworks</button>
+    <button class="tab" data-tab="tables">Tables</button>
+    <button class="tab" data-tab="matrix">Matrix Chart</button>
+  </div>
+
+  <main class="main">
+
+    <!-- FRAMEWORKS -->
+    <div class="tab-panel active" id="frameworks-panel">
+      <aside class="sidebar">
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Preset</h3></div>
+          <div class="form-group">
+            <label>Load a framework</label>
+            <select id="preset-select">
+              <option value="">— Custom —</option>
+              <option value="bcg">BCG Matrix</option>
+              <option value="swot">SWOT Analysis</option>
+              <option value="valuechain">Value Chain</option>
+              <option value="threehorizons">Three Horizons</option>
+              <option value="ansoff">Ansoff Matrix</option>
+            </select>
+          </div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Layout</h3></div>
+          <div class="layout-grid" id="layout-grid"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Canvas</h3></div>
+          <div class="form-row">
+            <div class="form-group"><label>Width</label><input type="number" id="canvas-width" value="862" min="400" max="1920"></div>
+            <div class="form-group"><label>Height</label><input type="number" id="canvas-height" value="485" min="300" max="1080"></div>
+          </div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Content</h3></div>
+          <div class="form-group"><label>Title</label><input type="text" id="title" placeholder="Framework Title"></div>
+          <div class="form-group"><label>Subtitle</label><input type="text" id="subtitle" placeholder="Optional subtitle"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header">
+            <h3>Boxes</h3>
+            <button class="btn btn-secondary btn-small" onclick="addBox()">+ Add</button>
+          </div>
+          <div id="box-list"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Export Options</h3></div>
+          <div class="toggle-row">
+            <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="show-byline" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- TABLES -->
+    <div class="tab-panel" id="tables-panel">
+      <aside class="sidebar">
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Table Settings</h3></div>
+          <div class="form-row">
+            <div class="form-group"><label>Rows</label><input type="number" id="table-rows" value="4" min="2" max="12"></div>
+            <div class="form-group"><label>Columns</label><input type="number" id="table-cols" value="4" min="2" max="8"></div>
+          </div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Canvas</h3></div>
+          <div class="form-row">
+            <div class="form-group"><label>Width</label><input type="number" id="table-canvas-width" value="862" min="400" max="1920"></div>
+            <div class="form-group"><label>Height</label><input type="number" id="table-canvas-height" value="485" min="300" max="1080"></div>
+          </div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Content</h3></div>
+          <div class="form-group"><label>Table Title</label><input type="text" id="table-title" placeholder="Table Title"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Table Data</h3></div>
+          <div id="table-data-editor"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Export Options</h3></div>
+          <div class="toggle-row">
+            <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="table-show-byline" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- MATRIX -->
+    <div class="tab-panel" id="matrix-panel">
+      <aside class="sidebar">
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Preset</h3></div>
+          <div class="form-group">
+            <label>Load a framework</label>
+            <select id="matrix-preset-select" onchange="if(this.value){loadPreset(this.value);this.value='';}">
+              <option value="">— Custom —</option>
+              <option value="prioritization">Prioritization Matrix</option>
+            </select>
+          </div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Axes</h3></div>
+          <div class="form-group"><label>X-Axis Label</label><input type="text" id="matrix-x-label" value="Impact"></div>
+          <div class="form-group"><label>Y-Axis Label</label><input type="text" id="matrix-y-label" value="Effort"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Canvas</h3></div>
+          <div class="form-row">
+            <div class="form-group"><label>Width</label><input type="number" id="matrix-canvas-width" value="862" min="400" max="1920"></div>
+            <div class="form-group"><label>Height</label><input type="number" id="matrix-canvas-height" value="647" min="300" max="1080"></div>
+          </div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Content</h3></div>
+          <div class="form-group"><label>Chart Title</label><input type="text" id="matrix-title" placeholder="Prioritization Matrix"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header">
+            <h3>Data Points</h3>
+            <button class="btn btn-secondary btn-small" onclick="addMatrixPoint()">+ Add</button>
+          </div>
+          <div id="matrix-points-list"></div>
+        </section>
+        <section class="sidebar-section">
+          <div class="section-header"><h3>Export Options</h3></div>
+          <div class="toggle-row">
+            <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="matrix-show-byline" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <!-- SHARED CANVAS -->
+    <div class="canvas-area">
+      <div class="canvas-toolbar">
+        <span class="canvas-info" id="canvas-info">862 × 485px</span>
+        <button class="btn btn-secondary btn-small" onclick="resetToDefaults()">Reset</button>
+      </div>
+      <div class="preview-wrapper">
+        <div class="preview-container" id="preview-container"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <canvas id="export-canvas"></canvas>
+  <script src="js/app.js"></script>
+</body>
+</html>
