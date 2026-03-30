@@ -804,5 +804,8 @@ function showToast(message) {
 // ============================================
 // BOOT
 // ============================================
-document.addEventListener('DOMContentLoaded', init);
-if (document.readyState === 'complete' || document.readyState === 'interactive') init();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
