@@ -34,15 +34,21 @@ body { padding-top: 72px; }
 }
 
 .site-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text);
   text-decoration: none;
-  letter-spacing: -0.02em;
 }
-.site-logo span { color: var(--teal); }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
   color: var(--text-muted);
   text-decoration: none;
   font-size: var(--text-sm);
@@ -107,7 +113,6 @@ body { padding-top: 72px; }
 }
 
 .email-form input[type="email"]:focus {
-  outline: none;
   border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(21,96,130,0.1);
 }
@@ -302,6 +307,9 @@ body { padding-top: 72px; }
 .pricing-features .check { color: var(--teal); font-weight: 700; flex-shrink: 0; }
 
 .pricing-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   padding: 12px var(--space-3);
   border-radius: var(--radius-md);
@@ -309,6 +317,7 @@ body { padding-top: 72px; }
   font-weight: 600;
   cursor: pointer;
   border: none;
+  text-decoration: none;
   transition: background 0.15s, transform 0.15s;
 }
 .pricing-cta--primary { background: var(--teal); color: var(--white); }
@@ -342,8 +351,51 @@ body { padding-top: 72px; }
   max-width: 1200px;
   margin: 0 auto;
 }
-.site-footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
 .site-footer a:hover { color: var(--teal); }
+
+/* ── Simple Static Pages ── */
+.legal-page {
+  max-width: 760px;
+  min-height: calc(100dvh - 180px);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-3);
+}
+
+.legal-page h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: var(--space-3);
+}
+
+.legal-page h2 {
+  font-size: 1.25rem;
+  margin: var(--space-4) 0 var(--space-1);
+}
+
+.legal-page p {
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.legal-page a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  color: var(--teal);
+  font-weight: 600;
+}
 
 /* ── Scroll Animations ── */
 .reveal {

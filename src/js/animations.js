@@ -5,6 +5,14 @@
 // 3. Scroll-triggered .reveal elements
 // ============================================
 (function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      el.classList.add('visible');
+      el.style.transitionDelay = '0ms';
+    });
+    return;
+  }
+
   // 1. Header scroll behaviour
   const header = document.querySelector('.site-header');
   if (header) {

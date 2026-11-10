@@ -26,9 +26,10 @@
   --white:      #FFFFFF;
   --border:     #E2E8F0;
 
-  --coral: #E07A5F;
-  --amber: #D4A03D;
-  --sage:  #4A9E6B;
+  --coral:  #E07A5F;
+  --orange: #E07A3D;
+  --amber:  #D4A03D;
+  --sage:   #4A9E6B;
 
   /* ── Spacing (8px grid) ── */
   --space-1:  8px;
@@ -68,9 +69,58 @@ html {
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
 }
 
 img, svg { display: block; }
 a { color: inherit; }
 button, input, select, textarea { font-family: var(--font); }
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 1000;
+  padding: 8px 12px;
+  background: var(--white);
+  color: var(--teal);
+  border: 2px solid var(--teal);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-3)));
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.brand-mark__name { color: var(--teal); }
+.brand-mark__suffix { color: var(--orange); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

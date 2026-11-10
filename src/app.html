@@ -4,37 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diagrammatic — Consulting-grade diagrams</title>
+  <meta name="description" content="Create consulting frameworks, tables, and matrix charts in a browser-based Diagrammatic studio.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#156082">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="Diagrammatic Studio">
+  <meta property="og:description" content="Create consulting frameworks, tables, and matrix charts in the browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://diagrammatic-red.vercel.app/app">
+  <meta property="og:image" content="https://diagrammatic-red.vercel.app/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://diagrammatic-red.vercel.app/app">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/app.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="app-header">
     <a href="/" class="logo">
       <div class="logo-icon">D</div>
-      <span class="logo-wordmark">diagrammatic<span>.ai</span></span>
+      <span class="logo-text">
+        <span class="logo-wordmark brand-mark" aria-label="diagrammatic.ai">
+          <span class="brand-mark__name">diagrammatic</span><span class="brand-mark__suffix">.ai</span>
+        </span>
+        <span class="logo-product">A Veritatis Product</span>
+      </span>
     </a>
     <div class="header-actions">
+      <a class="btn btn-secondary btn-small" href="/hero">Hero Generator</a>
       <button class="btn btn-secondary btn-small" onclick="copySVG()">Copy SVG</button>
       <button class="btn btn-primary btn-small" onclick="downloadPNG()">Download PNG</button>
     </div>
   </header>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="frameworks">Frameworks</button>
-    <button class="tab" data-tab="tables">Tables</button>
-    <button class="tab" data-tab="matrix">Matrix Chart</button>
+  <div class="tabs" role="tablist" aria-label="Diagram types">
+    <button class="tab active" id="frameworks-tab" data-tab="frameworks" role="tab" aria-controls="frameworks-panel" aria-selected="true">Frameworks</button>
+    <button class="tab" id="tables-tab" data-tab="tables" role="tab" aria-controls="tables-panel" aria-selected="false">Tables</button>
+    <button class="tab" id="matrix-tab" data-tab="matrix" role="tab" aria-controls="matrix-panel" aria-selected="false">Matrix Chart</button>
   </div>
 
-  <main class="main">
+  <main class="main" id="main-content">
+    <h1 class="sr-only">Diagrammatic Studio</h1>
 
     <!-- FRAMEWORKS -->
-    <div class="tab-panel active" id="frameworks-panel">
+    <div class="tab-panel active" id="frameworks-panel" role="tabpanel" aria-labelledby="frameworks-tab">
       <aside class="sidebar">
         <section class="sidebar-section">
           <div class="section-header"><h3>Preset</h3></div>
           <div class="form-group">
-            <label>Load a framework</label>
+            <label for="preset-select">Load a framework</label>
             <select id="preset-select">
               <option value="">— Custom —</option>
               <option value="bcg">BCG Matrix</option>
@@ -52,28 +74,28 @@
         <section class="sidebar-section">
           <div class="section-header"><h3>Canvas</h3></div>
           <div class="form-row">
-            <div class="form-group"><label>Width</label><input type="number" id="canvas-width" value="862" min="400" max="1920"></div>
-            <div class="form-group"><label>Height</label><input type="number" id="canvas-height" value="485" min="300" max="1080"></div>
+            <div class="form-group"><label for="canvas-width">Width</label><input type="number" id="canvas-width" value="862" min="400" max="1920" inputmode="numeric"></div>
+            <div class="form-group"><label for="canvas-height">Height</label><input type="number" id="canvas-height" value="485" min="300" max="1080" inputmode="numeric"></div>
           </div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Content</h3></div>
-          <div class="form-group"><label>Title</label><input type="text" id="title" placeholder="Framework Title"></div>
-          <div class="form-group"><label>Subtitle</label><input type="text" id="subtitle" placeholder="Optional subtitle"></div>
+          <div class="form-group"><label for="title">Title</label><input type="text" id="title" placeholder="Framework Title"></div>
+          <div class="form-group"><label for="subtitle">Subtitle</label><input type="text" id="subtitle" placeholder="Optional subtitle"></div>
         </section>
         <section class="sidebar-section">
           <div class="section-header">
             <h3>Boxes</h3>
-            <button class="btn btn-secondary btn-small" onclick="addBox()">+ Add</button>
+            <button class="btn btn-secondary btn-small" onclick="addBox()" aria-label="Add framework box">+ Add</button>
           </div>
           <div id="box-list"></div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Export Options</h3></div>
           <div class="toggle-row">
-            <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+            <span class="toggle-label" id="show-byline-label">Show <span class="brand-mark"><span class="brand-mark__name">diagrammatic</span><span class="brand-mark__suffix">.ai</span></span> badge</span>
             <label class="toggle-switch">
-              <input type="checkbox" id="show-byline" checked>
+              <input type="checkbox" id="show-byline" checked aria-labelledby="show-byline-label">
               <span class="toggle-slider"></span>
             </label>
           </div>
@@ -82,25 +104,25 @@
     </div>
 
     <!-- TABLES -->
-    <div class="tab-panel" id="tables-panel">
+    <div class="tab-panel" id="tables-panel" role="tabpanel" aria-labelledby="tables-tab" hidden>
       <aside class="sidebar">
         <section class="sidebar-section">
           <div class="section-header"><h3>Table Settings</h3></div>
           <div class="form-row">
-            <div class="form-group"><label>Rows</label><input type="number" id="table-rows" value="4" min="2" max="12"></div>
-            <div class="form-group"><label>Columns</label><input type="number" id="table-cols" value="4" min="2" max="8"></div>
+            <div class="form-group"><label for="table-rows">Rows</label><input type="number" id="table-rows" value="4" min="2" max="12" inputmode="numeric"></div>
+            <div class="form-group"><label for="table-cols">Columns</label><input type="number" id="table-cols" value="4" min="2" max="8" inputmode="numeric"></div>
           </div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Canvas</h3></div>
           <div class="form-row">
-            <div class="form-group"><label>Width</label><input type="number" id="table-canvas-width" value="862" min="400" max="1920"></div>
-            <div class="form-group"><label>Height</label><input type="number" id="table-canvas-height" value="485" min="300" max="1080"></div>
+            <div class="form-group"><label for="table-canvas-width">Width</label><input type="number" id="table-canvas-width" value="862" min="400" max="1920" inputmode="numeric"></div>
+            <div class="form-group"><label for="table-canvas-height">Height</label><input type="number" id="table-canvas-height" value="485" min="300" max="1080" inputmode="numeric"></div>
           </div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Content</h3></div>
-          <div class="form-group"><label>Table Title</label><input type="text" id="table-title" placeholder="Table Title"></div>
+          <div class="form-group"><label for="table-title">Table Title</label><input type="text" id="table-title" placeholder="Table Title"></div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Table Data</h3></div>
@@ -109,9 +131,9 @@
         <section class="sidebar-section">
           <div class="section-header"><h3>Export Options</h3></div>
           <div class="toggle-row">
-            <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+            <span class="toggle-label" id="table-show-byline-label">Show <span class="brand-mark"><span class="brand-mark__name">diagrammatic</span><span class="brand-mark__suffix">.ai</span></span> badge</span>
             <label class="toggle-switch">
-              <input type="checkbox" id="table-show-byline" checked>
+              <input type="checkbox" id="table-show-byline" checked aria-labelledby="table-show-byline-label">
               <span class="toggle-slider"></span>
             </label>
           </div>
@@ -120,12 +142,12 @@
     </div>
 
     <!-- MATRIX -->
-    <div class="tab-panel" id="matrix-panel">
+    <div class="tab-panel" id="matrix-panel" role="tabpanel" aria-labelledby="matrix-tab" hidden>
       <aside class="sidebar">
         <section class="sidebar-section">
           <div class="section-header"><h3>Preset</h3></div>
           <div class="form-group">
-            <label>Load a framework</label>
+            <label for="matrix-preset-select">Load a framework</label>
             <select id="matrix-preset-select" onchange="if(this.value){loadPreset(this.value);this.value='';}">
               <option value="">— Custom —</option>
               <option value="prioritization">Prioritization Matrix</option>
@@ -134,33 +156,33 @@
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Axes</h3></div>
-          <div class="form-group"><label>X-Axis Label</label><input type="text" id="matrix-x-label" value="Impact"></div>
-          <div class="form-group"><label>Y-Axis Label</label><input type="text" id="matrix-y-label" value="Effort"></div>
+          <div class="form-group"><label for="matrix-x-label">X-Axis Label</label><input type="text" id="matrix-x-label" value="Impact"></div>
+          <div class="form-group"><label for="matrix-y-label">Y-Axis Label</label><input type="text" id="matrix-y-label" value="Effort"></div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Canvas</h3></div>
           <div class="form-row">
-            <div class="form-group"><label>Width</label><input type="number" id="matrix-canvas-width" value="862" min="400" max="1920"></div>
-            <div class="form-group"><label>Height</label><input type="number" id="matrix-canvas-height" value="647" min="300" max="1080"></div>
+            <div class="form-group"><label for="matrix-canvas-width">Width</label><input type="number" id="matrix-canvas-width" value="862" min="400" max="1920" inputmode="numeric"></div>
+            <div class="form-group"><label for="matrix-canvas-height">Height</label><input type="number" id="matrix-canvas-height" value="647" min="300" max="1080" inputmode="numeric"></div>
           </div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Content</h3></div>
-          <div class="form-group"><label>Chart Title</label><input type="text" id="matrix-title" placeholder="Prioritization Matrix"></div>
+          <div class="form-group"><label for="matrix-title">Chart Title</label><input type="text" id="matrix-title" placeholder="Prioritization Matrix"></div>
         </section>
         <section class="sidebar-section">
           <div class="section-header">
             <h3>Data Points</h3>
-            <button class="btn btn-secondary btn-small" onclick="addMatrixPoint()">+ Add</button>
+            <button class="btn btn-secondary btn-small" onclick="addMatrixPoint()" aria-label="Add matrix data point">+ Add</button>
           </div>
           <div id="matrix-points-list"></div>
         </section>
         <section class="sidebar-section">
           <div class="section-header"><h3>Export Options</h3></div>
           <div class="toggle-row">
-            <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+            <span class="toggle-label" id="matrix-show-byline-label">Show <span class="brand-mark"><span class="brand-mark__name">diagrammatic</span><span class="brand-mark__suffix">.ai</span></span> badge</span>
             <label class="toggle-switch">
-              <input type="checkbox" id="matrix-show-byline" checked>
+              <input type="checkbox" id="matrix-show-byline" checked aria-labelledby="matrix-show-byline-label">
               <span class="toggle-slider"></span>
             </label>
           </div>

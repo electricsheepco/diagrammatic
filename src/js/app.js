@@ -12,6 +12,13 @@ const colorOptions = [
   { id: 'lightTeal', hex: '#EBF4F7', name: 'Light' }
 ];
 
+const brandMark = {
+  name: 'diagrammatic',
+  suffix: '.ai',
+  teal: '#156082',
+  orange: '#E07A3D'
+};
+
 const layouts = [
   { id: '2box',       name: '2 Box',    boxes: 2 },
   { id: '3box',       name: '3 Box',    boxes: 3 },
@@ -245,10 +252,16 @@ function bindEvents() {
 
 function switchTab(tab) {
   currentTab = tab;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
-  document.getElementById(`${tab}-panel`).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => {
+    const isActive = t.dataset.tab === tab;
+    t.classList.toggle('active', isActive);
+    t.setAttribute('aria-selected', String(isActive));
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    const isActive = p.id === `${tab}-panel`;
+    p.classList.toggle('active', isActive);
+    p.hidden = !isActive;
+  });
   if (tab === 'frameworks') updatePreview();
   else if (tab === 'tables') updateTablePreview();
   else if (tab === 'matrix') updateMatrixPreview();
@@ -304,23 +317,23 @@ function renderBoxList() {
     <div class="box-item">
       <div class="box-header">
         <span class="box-number">Box ${i + 1}</span>
-        ${state.boxes.length > 2 ? `<button class="box-delete" onclick="deleteBox(${i})">×</button>` : ''}
+        ${state.boxes.length > 2 ? `<button class="box-delete" onclick="deleteBox(${i})" aria-label="Delete box ${i + 1}">×</button>` : ''}
       </div>
       <div class="form-group">
-        <label>Title</label>
-        <input type="text" value="${escapeHtml(box.title)}" oninput="updateBox(${i}, 'title', this.value)">
+        <label for="box-${i}-title">Title</label>
+        <input type="text" id="box-${i}-title" value="${escapeHtml(box.title)}" oninput="updateBox(${i}, 'title', this.value)">
       </div>
       <div class="form-group">
-        <label>Subtitle</label>
-        <input type="text" value="${escapeHtml(box.subtitle)}" oninput="updateBox(${i}, 'subtitle', this.value)">
+        <label for="box-${i}-subtitle">Subtitle</label>
+        <input type="text" id="box-${i}-subtitle" value="${escapeHtml(box.subtitle)}" oninput="updateBox(${i}, 'subtitle', this.value)">
       </div>
       <div class="form-group">
-        <label>Color</label>
+        <span class="form-label">Color</span>
         <div class="color-options">
           ${colorOptions.map(c => `
-            <div class="color-option ${box.color === c.id ? 'active' : ''}"
+            <button type="button" class="color-option ${box.color === c.id ? 'active' : ''}"
                  style="background:${c.hex}" onclick="updateBox(${i},'color','${c.id}')"
-                 title="${c.name}"></div>
+                 title="${c.name}" aria-label="Set box ${i + 1} color to ${c.name}"></button>
           `).join('')}
         </div>
       </div>
@@ -365,12 +378,12 @@ function initTableData() {
 
 function renderTableEditor() {
   const editor = document.getElementById('table-data-editor');
-  let html = '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">';
+  let html = '<div style="overflow-x:auto"><table role="presentation" style="width:100%;border-collapse:collapse;font-size:11px">';
   for (let r = 0; r < tableState.rows; r++) {
     html += '<tr>';
     for (let c = 0; c < tableState.cols; c++) {
       const cell = tableState.data[r]?.[c] || { text: '' };
-      html += `<td style="padding:2px"><input type="text" value="${escapeHtml(cell.text)}"
+      html += `<td style="padding:2px"><input type="text" value="${escapeHtml(cell.text)}" aria-label="Table cell row ${r + 1}, column ${c + 1}"
         style="width:100%;padding:4px;font-size:11px;border:1px solid #e2e8f0;border-radius:3px;font-family:inherit"
         oninput="updateTableCell(${r},${c},this.value)"></td>`;
     }
@@ -395,6 +408,8 @@ function updateTablePreview() {
   if (svgEl) {
     svgEl.setAttribute('width', tableState.width);
     svgEl.setAttribute('height', tableState.height);
+    svgEl.setAttribute('role', 'img');
+    svgEl.setAttribute('aria-label', tableState.title || 'Table preview');
     svgEl.style.cssText = 'display:block;max-width:100%;height:auto';
   }
   document.getElementById('canvas-info').textContent = `${tableState.width} × ${tableState.height}px`;
@@ -414,7 +429,7 @@ function generateTableSVG(showByline = true) {
     .t-title  { font-family:'Inter',sans-serif; font-size:20px; font-weight:600; fill:#1A1A2E }
     .t-hcell  { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; fill:white }
     .t-cell   { font-family:'Inter',sans-serif; font-size:12px; fill:#1A1A2E }
-    .byline   { font-family:'Inter',sans-serif; font-size:10px; fill:#5BA3B8 }
+    .byline   { font-family:'Inter',sans-serif; font-size:10px }
   </style>
   <rect width="${w}" height="${h}" fill="white"/>`;
   if (tableState.title) svg += `\n  <text x="${w/2}" y="${pad+24}" text-anchor="middle" class="t-title">${escapeXml(tableState.title)}</text>`;
@@ -431,7 +446,7 @@ function generateTableSVG(showByline = true) {
       }
     }
   }
-  if (showByline) svg += `\n  <text x="${w-pad}" y="${h-10}" text-anchor="end" class="byline">diagrammatic.ai</text>`;
+  if (showByline) svg += `\n  ${renderBrandByline(w - pad, h - 10)}`;
   return svg + '\n</svg>';
 }
 
@@ -444,32 +459,32 @@ function renderMatrixPoints() {
     <div class="box-item">
       <div class="box-header">
         <span class="box-number">Point ${i + 1}</span>
-        ${matrixState.points.length > 1 ? `<button class="box-delete" onclick="deleteMatrixPoint(${i})">×</button>` : ''}
+        ${matrixState.points.length > 1 ? `<button class="box-delete" onclick="deleteMatrixPoint(${i})" aria-label="Delete point ${i + 1}">×</button>` : ''}
       </div>
       <div class="form-group">
-        <label>Label</label>
-        <input type="text" value="${escapeHtml(pt.label)}" oninput="updateMatrixPoint(${i},'label',this.value)">
+        <label for="matrix-point-${i}-label">Label</label>
+        <input type="text" id="matrix-point-${i}-label" value="${escapeHtml(pt.label)}" oninput="updateMatrixPoint(${i},'label',this.value)">
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>X (0–100)</label>
-          <input type="number" value="${pt.x}" min="0" max="100" oninput="updateMatrixPoint(${i},'x',parseInt(this.value)||0)">
+          <label for="matrix-point-${i}-x">X (0–100)</label>
+          <input type="number" id="matrix-point-${i}-x" value="${pt.x}" min="0" max="100" inputmode="numeric" oninput="updateMatrixPoint(${i},'x',parseInt(this.value)||0)">
         </div>
         <div class="form-group">
-          <label>Y (0–100)</label>
-          <input type="number" value="${pt.y}" min="0" max="100" oninput="updateMatrixPoint(${i},'y',parseInt(this.value)||0)">
+          <label for="matrix-point-${i}-y">Y (0–100)</label>
+          <input type="number" id="matrix-point-${i}-y" value="${pt.y}" min="0" max="100" inputmode="numeric" oninput="updateMatrixPoint(${i},'y',parseInt(this.value)||0)">
         </div>
       </div>
       <div class="form-group">
-        <label>Size</label>
-        <input type="number" value="${pt.size}" min="20" max="80" oninput="updateMatrixPoint(${i},'size',parseInt(this.value)||20)">
+        <label for="matrix-point-${i}-size">Size</label>
+        <input type="number" id="matrix-point-${i}-size" value="${pt.size}" min="20" max="80" inputmode="numeric" oninput="updateMatrixPoint(${i},'size',parseInt(this.value)||20)">
       </div>
       <div class="form-group">
-        <label>Color</label>
+        <span class="form-label">Color</span>
         <div class="color-options">
           ${colorOptions.slice(0,6).map(c => `
-            <div class="color-option ${pt.color===c.id?'active':''}" style="background:${c.hex}"
-                 onclick="updateMatrixPoint(${i},'color','${c.id}')" title="${c.name}"></div>
+            <button type="button" class="color-option ${pt.color===c.id?'active':''}" style="background:${c.hex}"
+                 onclick="updateMatrixPoint(${i},'color','${c.id}')" title="${c.name}" aria-label="Set point ${i + 1} color to ${c.name}"></button>
           `).join('')}
         </div>
       </div>
@@ -506,6 +521,8 @@ function updateMatrixPreview() {
   if (svgEl) {
     svgEl.setAttribute('width', matrixState.width);
     svgEl.setAttribute('height', matrixState.height);
+    svgEl.setAttribute('role', 'img');
+    svgEl.setAttribute('aria-label', matrixState.title || 'Matrix chart preview');
     svgEl.style.cssText = 'display:block;max-width:100%;height:auto';
   }
   document.getElementById('canvas-info').textContent = `${matrixState.width} × ${matrixState.height}px`;
@@ -522,7 +539,7 @@ function generateMatrixSVG(showByline = true) {
     .c-title { font-family:'Inter',sans-serif; font-size:20px; font-weight:600; fill:#1A1A2E }
     .c-axis  { font-family:'Inter',sans-serif; font-size:12px; font-weight:500; fill:#4A5568 }
     .c-pt    { font-family:'Inter',sans-serif; font-size:11px; font-weight:500; fill:#1A1A2E }
-    .byline  { font-family:'Inter',sans-serif; font-size:10px; fill:#5BA3B8 }
+    .byline  { font-family:'Inter',sans-serif; font-size:10px }
   </style>
   <rect width="${w}" height="${h}" fill="white"/>`;
   if (matrixState.title) svg += `\n  <text x="${w/2}" y="${pad+24}" text-anchor="middle" class="c-title">${escapeXml(matrixState.title)}</text>`;
@@ -539,7 +556,7 @@ function generateMatrixSVG(showByline = true) {
     svg += `\n  <circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="0.85"/>`;
     svg += `\n  <text x="${cx}" y="${cy-r-8}" text-anchor="middle" class="c-pt">${escapeXml(pt.label)}</text>`;
   });
-  if (showByline) svg += `\n  <text x="${w-pad}" y="${h-10}" text-anchor="end" class="byline">diagrammatic.ai</text>`;
+  if (showByline) svg += `\n  ${renderBrandByline(w - pad, h - 10)}`;
   return svg + '\n</svg>';
 }
 
@@ -559,7 +576,7 @@ function generateSVG() {
     .f-subtitle { font-family:'Inter',sans-serif; font-size:14px; fill:#4A5568 }
     .box-title  { font-family:'Inter',sans-serif; font-size:${boxTitleSize}px; font-weight:600; fill:white }
     .box-sub    { font-family:'Inter',sans-serif; font-size:${boxTitleSize-2}px; fill:rgba(255,255,255,0.85) }
-    .byline     { font-family:'Inter',sans-serif; font-size:10px; fill:#5BA3B8 }
+    .byline     { font-family:'Inter',sans-serif; font-size:10px }
   </style>
   <rect width="${w}" height="${h}" fill="white"/>`;
   if (state.title) {
@@ -568,7 +585,7 @@ function generateSVG() {
   }
   const cTop = pad + titleH;
   svg += renderLayout(pad, cTop, w - pad*2, h - cTop - pad - bylineH, boxTitleSize);
-  if (showByline) svg += `\n  <text x="${w-pad}" y="${h-10}" text-anchor="end" class="byline">diagrammatic.ai</text>`;
+  if (showByline) svg += `\n  ${renderBrandByline(w - pad, h - 10)}`;
   return svg + '\n</svg>';
 }
 
@@ -679,6 +696,11 @@ function renderArrow(x, y, w, h, box, isLast, ts) {
 function escapeXml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
 }
+
+function renderBrandByline(x, y, className = 'byline') {
+  return `<text x="${x}" y="${y}" text-anchor="end" class="${className}"><tspan fill="${brandMark.teal}">${brandMark.name}</tspan><tspan fill="${brandMark.orange}">${brandMark.suffix}</tspan></text>`;
+}
+
 function escapeHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -693,6 +715,8 @@ function updatePreview() {
   if (svgEl) {
     svgEl.setAttribute('width', state.width);
     svgEl.setAttribute('height', state.height);
+    svgEl.setAttribute('role', 'img');
+    svgEl.setAttribute('aria-label', state.title || 'Framework preview');
     svgEl.style.cssText = 'display:block;max-width:100%;height:auto';
   }
   document.getElementById('canvas-info').textContent = `${state.width} × ${state.height}px`;

@@ -14,6 +14,7 @@
             --near-black: #1A1A2E;
             --slate: #4A5568;
             --coral: #E07A5F;
+            --orange: #E07A3D;
             --amber: #D4A03D;
             --sage: #4A9E6B;
             --ui-bg: #f8f9fa;
@@ -62,12 +63,10 @@
         .logo h1 {
             font-size: 16px;
             font-weight: 600;
-            color: var(--near-black);
         }
 
-        .logo h1 span {
-            color: var(--teal);
-        }
+        .brand-name { color: var(--teal); }
+        .brand-suffix { color: var(--orange); }
 
         .logo-tagline {
             font-size: 11px;
@@ -473,7 +472,7 @@
         <a href="/" class="logo">
             <div class="logo-icon">D</div>
             <div>
-                <h1>diagrammatic<span>.ai</span></h1>
+                <h1 aria-label="diagrammatic.ai"><span class="brand-name">diagrammatic</span><span class="brand-suffix">.ai</span></h1>
             </div>
         </a>
         <div class="header-actions">
@@ -548,7 +547,7 @@
                         <h3>Export Options</h3>
                     </div>
                     <div class="toggle-row">
-                        <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+                        <span class="toggle-label">Show <span class="brand-name">diagrammatic</span><span class="brand-suffix">.ai</span> badge</span>
                         <label class="toggle-switch">
                             <input type="checkbox" id="show-byline" checked>
                             <span class="toggle-slider"></span>
@@ -620,7 +619,7 @@
                         <h3>Export Options</h3>
                     </div>
                     <div class="toggle-row">
-                        <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+                        <span class="toggle-label">Show <span class="brand-name">diagrammatic</span><span class="brand-suffix">.ai</span> badge</span>
                         <label class="toggle-switch">
                             <input type="checkbox" id="table-show-byline" checked>
                             <span class="toggle-slider"></span>
@@ -690,7 +689,7 @@
                         <h3>Export Options</h3>
                     </div>
                     <div class="toggle-row">
-                        <span class="toggle-label">Show "diagrammatic.ai" badge</span>
+                        <span class="toggle-label">Show <span class="brand-name">diagrammatic</span><span class="brand-suffix">.ai</span> badge</span>
                         <label class="toggle-switch">
                             <input type="checkbox" id="matrix-show-byline" checked>
                             <span class="toggle-slider"></span>
@@ -732,6 +731,13 @@
             { id: 'slate', hex: '#4A5568', name: 'Slate' },
             { id: 'lightTeal', hex: '#EBF4F7', name: 'Light' }
         ];
+
+        const brandMark = {
+            name: 'diagrammatic',
+            suffix: '.ai',
+            teal: '#156082',
+            orange: '#E07A3D'
+        };
 
         const layouts = [
             { id: '2box', name: '2 Box', boxes: 2 },
@@ -1080,7 +1086,7 @@
     .table-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; fill: #1A1A2E; }
     .header-cell { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; fill: white; }
     .body-cell { font-family: 'Inter', sans-serif; font-size: 12px; fill: #1A1A2E; }
-    .byline { font-family: 'Inter', sans-serif; font-size: 10px; fill: #5BA3B8; }
+    .byline { font-family: 'Inter', sans-serif; font-size: 10px; }
   </style>
   <rect width="${w}" height="${h}" fill="white"/>
 `;
@@ -1113,7 +1119,7 @@
 
             // Byline
             if (showByline) {
-                svg += `  <text x="${w - padding}" y="${h - 10}" text-anchor="end" class="byline">diagrammatic.ai</text>\n`;
+                svg += `  ${renderBrandByline(w - padding, h - 10)}\n`;
             }
 
             svg += '</svg>';
@@ -1232,7 +1238,7 @@
     .chart-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; fill: #1A1A2E; }
     .axis-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; fill: #4A5568; }
     .point-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; fill: #1A1A2E; }
-    .byline { font-family: 'Inter', sans-serif; font-size: 10px; fill: #5BA3B8; }
+    .byline { font-family: 'Inter', sans-serif; font-size: 10px; }
   </style>
   <rect width="${w}" height="${h}" fill="white"/>
 `;
@@ -1267,7 +1273,7 @@
 
             // Byline
             if (showByline) {
-                svg += `  <text x="${w - padding}" y="${h - 10}" text-anchor="end" class="byline">diagrammatic.ai</text>\n`;
+                svg += `  ${renderBrandByline(w - padding, h - 10)}\n`;
             }
 
             svg += '</svg>';
@@ -1293,7 +1299,7 @@
     .subtitle { font-family: 'Inter', sans-serif; font-size: 14px; fill: #4A5568; }
     .box-title { font-family: 'Inter', sans-serif; font-size: ${boxTitleSize}px; font-weight: 600; fill: white; }
     .box-subtitle { font-family: 'Inter', sans-serif; font-size: ${boxTitleSize - 2}px; fill: rgba(255,255,255,0.85); }
-    .byline { font-family: 'Inter', sans-serif; font-size: 10px; fill: #5BA3B8; }
+    .byline { font-family: 'Inter', sans-serif; font-size: 10px; }
   </style>
   <rect width="${w}" height="${h}" fill="white"/>
 `;
@@ -1313,7 +1319,7 @@
 
             // Byline
             if (showByline) {
-                svg += `  <text x="${w - padding}" y="${h - 10}" text-anchor="end" class="byline">diagrammatic.ai</text>\n`;
+                svg += `  ${renderBrandByline(w - padding, h - 10)}\n`;
             }
 
             svg += '</svg>';
@@ -1489,6 +1495,10 @@
                       .replace(/>/g, '&gt;')
                       .replace(/"/g, '&quot;')
                       .replace(/'/g, '&apos;');
+        }
+
+        function renderBrandByline(x, y) {
+            return `<text x="${x}" y="${y}" text-anchor="end" class="byline"><tspan fill="${brandMark.teal}">${brandMark.name}</tspan><tspan fill="${brandMark.orange}">${brandMark.suffix}</tspan></text>`;
         }
 
         function escapeHtml(str) {

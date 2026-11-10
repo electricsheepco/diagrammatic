@@ -24,6 +24,7 @@
       --teal-mid: #1B7A9F;
       --teal-soft: #5BA3B8;
       --teal-light: #EBF4F7;
+      --orange: #E07A3D;
       --text: #1A1A2E;
       --text-muted: #4A5568;
       --bg: #FAFBFC;
@@ -51,14 +52,11 @@
     .logo {
       font-size: 1.25rem;
       font-weight: 700;
-      color: var(--teal);
       text-decoration: none;
-      letter-spacing: -0.02em;
     }
 
-    .logo span {
-      color: var(--text);
-    }
+    .brand-name { color: var(--teal); }
+    .brand-suffix { color: var(--orange); }
 
     nav a {
       color: var(--text-muted);
@@ -341,7 +339,7 @@
 <body>
 
   <header>
-    <a href="/" class="logo">diagrammatic<span>.ai</span></a>
+    <a href="/" class="logo" aria-label="diagrammatic.ai"><span class="brand-name">diagrammatic</span><span class="brand-suffix">.ai</span></a>
     <nav>
       <a href="#frameworks">Frameworks</a>
       <a href="/app">Try It</a>
@@ -426,7 +424,7 @@
   </section>
 
   <footer>
-    <span>© 2026 Diagrammatic. An <a href="https://electricsheepco.com">Electric Sheep</a> product.</span>
+    <span>© 2026 Diagrammatic. A Veritatis Product.</span>
     <span>
       <a href="mailto:hello@diagrammatic.ai">Contact</a>
     </span>

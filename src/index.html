@@ -5,21 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diagrammatic — Consulting-grade diagrams. Instantly.</title>
   <meta name="description" content="The frameworks McKinsey uses. The speed napkin.ai promises. No design skills required.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#156082">
+  <meta name="color-scheme" content="light">
   <meta property="og:title" content="Diagrammatic — Consulting-grade diagrams. Instantly.">
   <meta property="og:description" content="Stop rebuilding the same BCG matrix in PowerPoint. Pick a framework, fill in your content, export in seconds.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://diagrammatic.ai">
-  <link rel="canonical" href="https://diagrammatic.ai">
+  <meta property="og:url" content="https://diagrammatic-red.vercel.app/">
+  <meta property="og:image" content="https://diagrammatic-red.vercel.app/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Diagrammatic — Consulting-grade diagrams. Instantly.">
+  <meta name="twitter:description" content="Pick a framework, fill in your content, and export consulting-grade diagrams in seconds.">
+  <meta name="twitter:image" content="https://diagrammatic-red.vercel.app/og-image.png">
+  <link rel="canonical" href="https://diagrammatic-red.vercel.app/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/landing.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Diagrammatic",
+    "url": "https://diagrammatic-red.vercel.app/",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "description": "A static web app for creating consulting-grade diagrams, tables, matrix charts, and hero images."
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header" id="site-header">
     <div class="header-inner">
-      <a href="/" class="site-logo">diagrammatic<span>.ai</span></a>
-      <nav class="site-nav">
+      <a href="/" class="site-logo brand-mark" aria-label="diagrammatic.ai">
+        <span class="brand-mark__name">diagrammatic</span><span class="brand-mark__suffix">.ai</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
         <a href="#frameworks">Frameworks</a>
+        <a href="/hero">Hero Generator</a>
         <a href="#pricing">Pricing</a>
         <a href="/app" class="nav-cta">Try It →</a>
       </nav>
@@ -37,14 +65,16 @@
         Pick a framework, fill in your content, export in seconds.
       </p>
       <form class="email-form reveal" data-delay="360"
-            action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="email" name="email" placeholder="you@company.com" required>
+            action="mailto:hello@diagrammatic.ai?subject=Diagrammatic%20early%20access" method="post" enctype="text/plain">
+        <label class="sr-only" for="hero-email">Email address</label>
+        <input id="hero-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" enterkeyhint="send" required aria-describedby="hero-email-note">
         <button type="submit" class="btn-hero">Get Early Access →</button>
-        <p class="form-note">Free while in beta. No credit card required.</p>
+        <p class="form-note" id="hero-email-note">Free while in beta. No credit card required.</p>
       </form>
     </div>
   </section>
 
+  <main id="main-content">
   <section class="how-it-works">
     <div class="section-inner">
       <h2 class="section-heading reveal">How It Works</h2>
@@ -110,7 +140,7 @@
             <li><span class="check">✓</span> Watermark</li>
             <li><span class="check">✓</span> All framework presets</li>
           </ul>
-          <button class="pricing-cta pricing-cta--secondary">Join Waitlist</button>
+          <a class="pricing-cta pricing-cta--secondary" href="#early-access">Join Waitlist</a>
         </div>
 
         <div class="pricing-card pricing-card--featured reveal">
@@ -125,7 +155,7 @@
             <li><span class="check">✓</span> Brand kit</li>
             <li><span class="check">✓</span> All framework presets</li>
           </ul>
-          <button class="pricing-cta pricing-cta--primary">Get Early Access</button>
+          <a class="pricing-cta pricing-cta--primary" href="#early-access">Get Early Access</a>
         </div>
 
         <div class="pricing-card reveal">
@@ -138,27 +168,29 @@
             <li><span class="check">✓</span> API access</li>
             <li><span class="check">✓</span> Priority support</li>
           </ul>
-          <button class="pricing-cta pricing-cta--secondary">Get Early Access</button>
+          <a class="pricing-cta pricing-cta--secondary" href="#early-access">Get Early Access</a>
         </div>
 
       </div>
     </div>
   </section>
 
-  <section class="cta-section">
+  <section class="cta-section" id="early-access">
     <h2>Ready to ship better diagrams?</h2>
     <p>Join the beta and never rebuild a BCG matrix from scratch again.</p>
-    <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="email" name="email" placeholder="you@company.com" required>
+    <form class="email-form" action="mailto:hello@diagrammatic.ai?subject=Diagrammatic%20early%20access" method="post" enctype="text/plain">
+      <label class="sr-only" for="cta-email">Email address</label>
+      <input id="cta-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" enterkeyhint="send" required>
       <button type="submit" class="btn-hero">Get Early Access →</button>
     </form>
   </section>
+  </main>
 
   <footer class="site-footer">
-    <span>© 2026 Diagrammatic. An <a href="https://electric-sheep-supply-co.in">Electric Sheep</a> product.</span>
-    <a href="mailto:hello@diagrammatic.ai">Contact</a>
+    <span>© 2026 Diagrammatic. A Veritatis Product.</span>
+    <span><a href="/privacy">Privacy</a> · <a href="mailto:hello@diagrammatic.ai">Contact</a></span>
   </footer>
 
-  <script src="js/animations.js"></script>
+  <script src="js/animations.js" defer></script>
 </body>
 </html>
