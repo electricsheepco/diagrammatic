@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagrammatic — Hero Generator</title>
+<meta name="description" content="Generate branded hero images and social cards with Diagrammatic and Veritatis palettes.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#156082">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="Diagrammatic — Hero Generator">
+<meta property="og:description" content="Generate branded hero images and social cards with Diagrammatic and Veritatis palettes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://diagrammatic-red.vercel.app/hero">
+<meta property="og:image" content="https://diagrammatic-red.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://diagrammatic-red.vercel.app/hero">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#156082; --mid-teal:#1B7A9F; --light-teal:#EBF4F7; --orange:#E07A3D;
+    --near-black:#1A1A2E; --slate:#4A5568; --ui-bg:#f8f9fa; --ui-border:#e2e8f0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--ui-bg);color:var(--near-black);min-height:100vh;}
+  .header{background:#fff;border-bottom:1px solid var(--ui-border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:12px;min-height:44px;text-decoration:none;color:inherit;}
+  .logo-icon{width:32px;height:32px;background:var(--teal);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;}
+  .logo h1{font-size:16px;font-weight:600;}
+  .logo p{font-size:11px;color:var(--slate);}
+  .brand-name{color:var(--teal);}
+  .brand-suffix{color:var(--orange);}
+  .header-actions{display:flex;gap:8px;}
+  .btn{display:flex;align-items:center;gap:6px;min-height:44px;padding:8px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--ui-border);background:#fff;font-family:inherit;text-decoration:none;color:var(--near-black);}
+  .btn:hover{border-color:var(--teal);color:var(--teal);}
+  .btn-success{background:var(--teal);color:#fff;border-color:var(--teal);}
+  .btn-success:hover{background:var(--mid-teal);color:#fff;}
+  .main{display:flex;height:calc(100vh - 57px);}
+  .sidebar{width:340px;background:#fff;border-right:1px solid var(--ui-border);overflow-y:auto;flex-shrink:0;}
+  .sidebar-section{border-bottom:1px solid var(--ui-border);padding:16px;}
+  .section-header h3{font-size:11px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;}
+  .opt-btn{min-height:88px;border:2px solid var(--ui-border);border-radius:6px;background:#fff;cursor:pointer;padding:8px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .15s;}
+  .opt-btn:hover{border-color:var(--teal);background:var(--light-teal);}
+  .opt-btn.active{border-color:var(--teal);background:var(--light-teal);box-shadow:0 0 0 2px rgba(21,96,130,.2);}
+  .opt-btn svg{width:100%;height:36px;border-radius:3px;}
+  .opt-btn span{font-size:10px;color:var(--slate);}
+  .size-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;}
+  .size-btn{min-height:58px;padding:8px;border:2px solid var(--ui-border);border-radius:6px;background:#fff;cursor:pointer;text-align:center;}
+  .size-btn.active{border-color:var(--teal);background:var(--light-teal);}
+  .size-btn .dims{font-size:12px;font-weight:600;}
+  .size-btn .label{font-size:10px;color:var(--slate);}
+  .pal-row{display:flex;gap:8px;}
+  .pal-btn{flex:1;min-height:58px;border:2px solid var(--ui-border);border-radius:6px;padding:8px;cursor:pointer;text-align:center;font-size:12px;font-weight:600;}
+  .pal-btn.active{border-color:var(--teal);box-shadow:0 0 0 2px rgba(21,96,130,.2);}
+  .pal-sw{display:flex;gap:3px;justify-content:center;margin-bottom:5px;}
+  .pal-sw i{width:14px;height:14px;border-radius:3px;display:inline-block;}
+  .form-group{margin-bottom:12px;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-group label{display:block;font-size:11px;font-weight:500;color:var(--slate);margin-bottom:4px;}
+  .form-group input,.form-group select{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--ui-border);border-radius:6px;font-family:inherit;font-size:16px;}
+  .form-group input:focus,.form-group select:focus{border-color:var(--teal);}
+  .preview-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:32px;overflow:auto;background:repeating-conic-gradient(#eef1f4 0% 25%,#f8f9fa 0% 50%) 50%/20px 20px;}
+  .preview-card{box-shadow:0 8px 30px rgba(0,0,0,.12);max-width:100%;}
+  .preview-card svg{display:block;max-width:100%;height:auto;}
+  #export-canvas{display:none;}
+  .hint{font-size:10px;color:var(--slate);margin-top:6px;line-height:1.4;}
+  .skip-link{position:absolute;left:12px;top:12px;z-index:20;padding:8px 12px;background:#fff;color:var(--teal);border:2px solid var(--teal);border-radius:6px;transform:translateY(-140%);}
+  .skip-link:focus{transform:translateY(0);}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  :focus-visible{outline:3px solid var(--orange);outline-offset:3px;}
+  @media (max-width: 860px){
+    .header{align-items:flex-start;gap:12px;flex-direction:column;}
+    .header-actions{flex-wrap:wrap;}
+    .main{height:auto;min-height:calc(100vh - 104px);flex-direction:column;}
+    .sidebar{width:100%;border-right:0;border-bottom:1px solid var(--ui-border);}
+    .preview-wrap{min-height:460px;padding:18px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="header">
+  <a class="logo" href="/app" aria-label="Back to Diagrammatic studio">
+    <div class="logo-icon">D</div>
+    <div>
+      <h1>Hero Generator</h1>
+      <p><span class="brand-name">diagrammatic</span><span class="brand-suffix">.ai</span> asset studio - A Veritatis Product</p>
+    </div>
+  </a>
+  <div class="header-actions">
+    <a class="btn" href="/app">Open Studio</a>
+    <button class="btn" onclick="randomise()">Shuffle</button>
+    <button class="btn" onclick="copySVG()">Copy SVG</button>
+    <button class="btn btn-success" onclick="downloadPNG()">Download PNG</button>
+  </div>
+</header>
+<main class="main" id="main-content">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="section-header"><h3>Style</h3></div>
+      <div class="grid4" id="style-grid"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="section-header"><h3>Canvas</h3></div>
+      <div class="size-grid" id="size-grid"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="section-header"><h3>Palette</h3></div>
+      <div class="pal-row" id="pal-row"></div>
+      <div class="hint">Diagrammatic and Veritatis palettes never mix. Pick one per asset.</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="section-header"><h3>Content</h3></div>
+      <div class="form-group"><label for="i-eyebrow">Eyebrow</label><input id="i-eyebrow" type="text"></div>
+      <div class="form-group"><label for="i-title">Title</label><input id="i-title" type="text"></div>
+      <div class="form-group"><label for="i-subtitle">Subtitle</label><input id="i-subtitle" type="text"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="section-header"><h3>Typography</h3></div>
+      <div class="form-group"><label for="i-pairing">Pairing presets</label><select id="i-pairing"></select></div>
+      <div class="form-group"><label for="i-headfont">Heading font</label><select id="i-headfont"></select></div>
+      <div class="form-group"><label for="i-bodyfont">Body font</label><select id="i-bodyfont"></select></div>
+      <div class="hint">Google Fonts. Uploading custom fonts is on the roadmap.</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="section-header"><h3>Wordmark</h3></div>
+      <div class="form-group"><label for="i-wordmark">Brand line</label>
+        <select id="i-wordmark">
+          <option value="auto">Auto (matches palette)</option>
+          <option value="veritatis">veritatis.in + diagrammatic.ai</option>
+          <option value="diagrammatic">diagrammatic.ai only</option>
+          <option value="none">None</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+  <section class="preview-wrap" aria-label="Hero image preview">
+    <div class="preview-card" id="preview"></div>
+  </section>
+</main>
+<canvas id="export-canvas"></canvas>
+
+<script>
+// ============================================================
+// DIAGRAMMATIC HERO ATOM
+// A codex generator. Interface mirrors the Diagram Studio:
+//   generateSVG() -> full SVG string ; copySVG() ; downloadPNG()
+// To register in the main studio codex, add a mode that calls
+// generateHeroSVG(state) and a sidebar panel bound to `state`.
+// ============================================================
+
+// ---- Palettes (never crossed) ----
+const PALETTES = {
+  diagrammatic:{
+    label:'Diagrammatic',
+    bg:'#16242B', primary:'#156082', node:'#2E8FB0', accent:'#E07A5F',
+    grid:'#1F6E8C', ink:'#FFFFFF', sub:'#BFE0EA', mark:'#9FD2E0',
+    swatches:['#156082','#E07A5F','#D4A03D','#4A9E6B']
+  },
+  veritatis:{
+    label:'Veritatis',
+    bg:'#2E2E38', primary:'#0098A7', node:'#0098A7', accent:'#FF6D00',
+    grid:'#0098A7', ink:'#FFFFFF', sub:'#CFEAEE', mark:'#0098A7',
+    swatches:['#0098A7','#FF6D00','#2DB757','#188CE5']
+  }
+};
+
+const DIAGRAMMATIC_WORDMARK = {
+  name:'diagrammatic',
+  suffix:'.ai',
+  teal:'#156082',
+  orange:'#E07A3D'
+};
+
+// ---- Fonts (Google Fonts) ----
+const FONTS=['Poppins','Inter','Montserrat','DM Sans','Space Grotesk','Archivo',
+  'Libre Franklin','IBM Plex Sans','Source Sans 3','Work Sans','Manrope','Lexend',
+  'Playfair Display','Fraunces','Lora','DM Serif Display','Spectral'];
+const PAIRINGS=[
+  {name:'Space Grotesk / Inter',head:'Space Grotesk',body:'Inter'},
+  {name:'Poppins / Inter',head:'Poppins',body:'Inter'},
+  {name:'Archivo / Libre Franklin',head:'Archivo',body:'Libre Franklin'},
+  {name:'Fraunces / Libre Franklin',head:'Fraunces',body:'Libre Franklin'},
+  {name:'Playfair Display / Source Sans 3',head:'Playfair Display',body:'Source Sans 3'},
+  {name:'DM Serif Display / DM Sans',head:'DM Serif Display',body:'DM Sans'},
+  {name:'IBM Plex Sans / IBM Plex Sans',head:'IBM Plex Sans',body:'IBM Plex Sans'},
+  {name:'Montserrat / Lora',head:'Montserrat',body:'Lora'}
+];
+
+const STYLES=[
+  {id:'grid',name:'Grid Drift'},
+  {id:'crosslines',name:'Crossing Lines'},
+  {id:'network',name:'Branching Network'},
+  {id:'replication',name:'Replication'}
+];
+
+const SIZES=[
+  {w:1200,h:630,label:'Hero / OG'},
+  {w:1080,h:1350,label:'Portrait'},
+  {w:1200,h:400,label:'Banner'},
+  {w:1080,h:1080,label:'Square'}
+];
+
+const state={
+  style:'network', width:1200, height:630, palette:'diagrammatic',
+  eyebrow:'ARC 1 · THE FORGOTTEN PURPOSE', title:'Automation vs AI',
+  subtitle:'Faster is not smarter.',
+  headFont:'Space Grotesk', bodyFont:'Inter', wordmark:'auto', seed:7
+};
+
+// ---- seeded RNG ----
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+function loadFont(name){
+  const id='gf-'+name.replace(/\s+/g,'-');
+  if(document.getElementById(id))return;
+  const l=document.createElement('link');l.id=id;l.rel='stylesheet';
+  l.href='https://fonts.googleapis.com/css2?family='+name.replace(/\s+/g,'+')+':ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap';
+  document.head.appendChild(l);
+}
+
+// ============================================================
+// STYLE GENERATORS  (return SVG fragment string for the motif)
+// Motif occupies the right portion; title sits on the left.
+// ============================================================
+function motifGrid(P,W,H,rand){
+  let s='';
+  // ordered grid, left
+  const cols=6,rows=Math.round(H/90);
+  for(let c=0;c<cols;c++)for(let r=0;r<rows;r++){
+    const x=70+c*46,y=110+r*46;
+    s+=`<rect x="${x}" y="${y}" width="26" height="26" rx="2" fill="${P.grid}" opacity="0.85"/>`;
+  }
+  // drifting scatter, right
+  const n=Math.round(W*H/9000);
+  for(let i=0;i<n;i++){
+    const x=W*0.45+rand()*W*0.55, y=20+rand()*(H-40);
+    const sz=8+rand()*20, rot=(rand()*40-20);
+    const fill=rand()>0.78?P.accent:P.primary;
+    s+=`<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${sz.toFixed(0)}" height="${sz.toFixed(0)}" rx="2" fill="${fill}" opacity="${(0.4+rand()*0.55).toFixed(2)}" transform="rotate(${rot.toFixed(0)} ${x.toFixed(0)} ${y.toFixed(0)})"/>`;
+  }
+  return s;
+}
+function motifCrosslines(P,W,H,rand){
+  // two trend lines crossing on the right half
+  const x0=W*0.40,x1=W-60;
+  const tealPts=[],orangePts=[];const steps=10;
+  for(let i=0;i<=steps;i++){
+    const t=i/steps,x=x0+(x1-x0)*t;
+    tealPts.push(`${x.toFixed(0)},${(H*0.25+(H*0.5)*t).toFixed(0)}`);
+    orangePts.push(`${x.toFixed(0)},${(H*0.75-(H*0.5)*t).toFixed(0)}`);
+  }
+  let s=`<polyline points="${tealPts.join(' ')}" fill="none" stroke="${P.primary}" stroke-width="4"/>`;
+  s+=`<polyline points="${orangePts.join(' ')}" fill="none" stroke="${P.accent}" stroke-width="4"/>`;
+  tealPts.forEach(p=>{const[a,b]=p.split(',');s+=`<circle cx="${a}" cy="${b}" r="4" fill="${P.primary}"/>`;});
+  orangePts.forEach(p=>{const[a,b]=p.split(',');s+=`<circle cx="${a}" cy="${b}" r="4" fill="${P.accent}"/>`;});
+  return s;
+}
+function motifNetwork(P,W,H,rand){
+  let s='';const root=[W*0.60,H/2];
+  function branch(x,y,ang,len,depth){
+    if(depth===0)return;
+    for(let i=0;i<2;i++){
+      const a=ang+(i-0.5)*0.7+(rand()*0.3-0.15);
+      const nx=x+Math.cos(a)*len, ny=y+Math.sin(a)*len;
+      s+=`<line x1="${x.toFixed(0)}" y1="${y.toFixed(0)}" x2="${nx.toFixed(0)}" y2="${ny.toFixed(0)}" stroke="${P.node}" stroke-width="1.6" opacity="0.5"/>`;
+      const col=depth===1?P.accent:P.node, r=depth===1?4:6;
+      s+=`<circle cx="${nx.toFixed(0)}" cy="${ny.toFixed(0)}" r="${r}" fill="${col}"/>`;
+      branch(nx,ny,a,len*0.72,depth-1);
+    }
+  }
+  s+=`<circle cx="${root[0].toFixed(0)}" cy="${root[1].toFixed(0)}" r="9" fill="${P.node}"/>`;
+  [-0.3,0.5,1.4,-1.1].forEach((ang,i)=>branch(root[0],root[1],ang,140,i<2?4:3));
+  return s;
+}
+function motifReplication(P,W,H,rand){
+  let s='';
+  const xs=[W*0.46,W*0.58,W*0.70,W*0.82,W*0.93];
+  const counts=[1,2,4,8,12];const gens=[];
+  xs.forEach((x,gi)=>{
+    const c=counts[gi];const ys=[];
+    if(c===1)ys.push(H/2);
+    else{const span=Math.min(40+c*34,H*0.85),top=H/2-span/2;for(let i=0;i<c;i++)ys.push(top+span/(c-1)*i);}
+    gens.push([x,ys]);
+  });
+  for(let gi=0;gi<gens.length-1;gi++){
+    const[px,pys]=gens[gi],[cx,cys]=gens[gi+1];
+    cys.forEach((cy,j)=>{const py=pys[Math.min(Math.floor(j*pys.length/cys.length),pys.length-1)];
+      s+=`<line x1="${px.toFixed(0)}" y1="${py.toFixed(0)}" x2="${cx.toFixed(0)}" y2="${cy.toFixed(0)}" stroke="${P.node}" stroke-width="1.2" opacity="0.35"/>`;});
+  }
+  gens.forEach(([x,ys],gi)=>ys.forEach(y=>{
+    const r=gi===0?13:9;
+    s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r}" fill="${P.accent}"/>`;
+    if(gi===0)s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="22" fill="none" stroke="${P.accent}" stroke-width="1.5" opacity="0.5"/>`;
+  }));
+  return s;
+}
+const MOTIF={grid:motifGrid,crosslines:motifCrosslines,network:motifNetwork,replication:motifReplication};
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function wordmarkSVG(P,W,H){
+  const mode=state.wordmark==='auto'?(state.palette==='veritatis'?'veritatis':'diagrammatic'):state.wordmark;
+  if(mode==='none')return '';
+  const y=H-40;let s='';
+  if(mode==='veritatis'){
+    s+=`<text x="64" y="${y}" font-family="${state.bodyFont}" font-size="16" font-style="italic" fill="${P.mark}">veritatis.in</text>`;
+    s+=`<text x="64" y="${y+20}" font-family="${state.bodyFont}" font-size="13"><tspan fill="${DIAGRAMMATIC_WORDMARK.teal}">${DIAGRAMMATIC_WORDMARK.name}</tspan><tspan fill="${DIAGRAMMATIC_WORDMARK.orange}">${DIAGRAMMATIC_WORDMARK.suffix}</tspan></text>`;
+  }else{
+    s+=`<text x="64" y="${y+20}" font-family="${state.bodyFont}" font-size="14"><tspan fill="${DIAGRAMMATIC_WORDMARK.teal}">${DIAGRAMMATIC_WORDMARK.name}</tspan><tspan fill="${DIAGRAMMATIC_WORDMARK.orange}">${DIAGRAMMATIC_WORDMARK.suffix}</tspan></text>`;
+  }
+  return s;
+}
+
+// ---- assemble full hero SVG ----
+function generateHeroSVG(){
+  const P=PALETTES[state.palette], W=state.width, H=state.height;
+  const rand=rng(state.seed);
+  const portrait = H>W;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s+=`<rect width="${W}" height="${H}" fill="${P.bg}"/>`;
+  s+=MOTIF[state.style](P,W,H,rand);
+  // legibility scrim behind the title block
+  const scrimW = portrait ? W : Math.min(W*0.56, 720);
+  const scrimH = portrait ? 220 : 200;
+  s+=`<rect x="0" y="${H-scrimH-40}" width="${scrimW}" height="${scrimH+40}" fill="${P.bg}" opacity="0.82"/>`;
+  // text block
+  const tx=64;
+  s+=`<text x="${tx}" y="92" font-family="${state.bodyFont}" font-size="15" font-weight="600" letter-spacing="3" fill="${P.mark}">${esc(state.eyebrow).toUpperCase()}</text>`;
+  const titleY=H-scrimH+14;
+  s+=`<text x="${tx-4}" y="${titleY}" font-family="${state.headFont}" font-size="56" font-weight="700" fill="${P.ink}">${esc(state.title)}</text>`;
+  s+=`<text x="${tx}" y="${titleY+40}" font-family="${state.bodyFont}" font-size="21" fill="${P.sub}">${esc(state.subtitle)}</text>`;
+  s+=wordmarkSVG(P,W,H);
+  s+=`</svg>`;
+  return s;
+}
+
+// ============================================================
+// UI WIRING
+// ============================================================
+function thumb(id){
+  const P=PALETTES[state.palette];
+  if(id==='grid')return `<svg viewBox="0 0 80 36"><rect width="80" height="36" fill="${P.bg}"/><rect x="6" y="8" width="6" height="6" fill="${P.grid}"/><rect x="6" y="18" width="6" height="6" fill="${P.grid}"/><rect x="40" y="10" width="7" height="7" fill="${P.primary}"/><rect x="58" y="20" width="6" height="6" fill="${P.accent}"/></svg>`;
+  if(id==='crosslines')return `<svg viewBox="0 0 80 36"><rect width="80" height="36" fill="${P.bg}"/><polyline points="30,8 72,28" fill="none" stroke="${P.primary}" stroke-width="2"/><polyline points="30,28 72,8" fill="none" stroke="${P.accent}" stroke-width="2"/></svg>`;
+  if(id==='network')return `<svg viewBox="0 0 80 36"><rect width="80" height="36" fill="${P.bg}"/><circle cx="40" cy="18" r="4" fill="${P.node}"/><line x1="40" y1="18" x2="62" y2="8" stroke="${P.node}" stroke-width="1"/><line x1="40" y1="18" x2="62" y2="28" stroke="${P.node}" stroke-width="1"/><circle cx="62" cy="8" r="3" fill="${P.accent}"/><circle cx="62" cy="28" r="3" fill="${P.accent}"/></svg>`;
+  return `<svg viewBox="0 0 80 36"><rect width="80" height="36" fill="${P.bg}"/><circle cx="30" cy="18" r="4" fill="${P.accent}"/><circle cx="50" cy="10" r="3" fill="${P.accent}"/><circle cx="50" cy="26" r="3" fill="${P.accent}"/><circle cx="66" cy="6" r="2.5" fill="${P.accent}"/><circle cx="66" cy="16" r="2.5" fill="${P.accent}"/><circle cx="66" cy="30" r="2.5" fill="${P.accent}"/></svg>`;
+}
+function renderStyles(){
+  document.getElementById('style-grid').innerHTML=STYLES.map(st=>
+    `<button class="opt-btn ${state.style===st.id?'active':''}" onclick="setStyle('${st.id}')">${thumb(st.id)}<span>${st.name}</span></button>`).join('');
+}
+function renderSizes(){
+  document.getElementById('size-grid').innerHTML=SIZES.map(sz=>
+    `<button class="size-btn ${state.width===sz.w&&state.height===sz.h?'active':''}" onclick="setSize(${sz.w},${sz.h})"><div class="dims">${sz.w}×${sz.h}</div><div class="label">${sz.label}</div></button>`).join('');
+}
+function renderPalettes(){
+  document.getElementById('pal-row').innerHTML=Object.keys(PALETTES).map(k=>{
+    const P=PALETTES[k];
+    return `<button class="pal-btn ${state.palette===k?'active':''}" onclick="setPalette('${k}')"><div class="pal-sw">${P.swatches.map(c=>`<i style="background:${c}"></i>`).join('')}</div>${P.label}</button>`;
+  }).join('');
+}
+function fillSelect(id,arr,val){document.getElementById(id).innerHTML=arr.map(f=>`<option ${f===val?'selected':''}>${f}</option>`).join('');}
+function renderFonts(){
+  fillSelect('i-headfont',FONTS,state.headFont);
+  fillSelect('i-bodyfont',FONTS,state.bodyFont);
+  document.getElementById('i-pairing').innerHTML='<option value="">Custom…</option>'+PAIRINGS.map((p,i)=>`<option value="${i}">${p.name}</option>`).join('');
+}
+
+function setStyle(id){state.style=id;renderStyles();update();}
+function setSize(w,h){state.width=w;state.height=h;renderSizes();update();}
+function setPalette(k){state.palette=k;renderPalettes();renderStyles();update();}
+function randomise(){state.seed=Math.floor(Math.random()*1e6);update();}
+
+function bind(){
+  ['eyebrow','title','subtitle'].forEach(k=>{
+    document.getElementById('i-'+k).value=state[k];
+    document.getElementById('i-'+k).addEventListener('input',e=>{state[k]=e.target.value;update();});
+  });
+  document.getElementById('i-headfont').addEventListener('change',e=>{state.headFont=e.target.value;loadFont(state.headFont);update();});
+  document.getElementById('i-bodyfont').addEventListener('change',e=>{state.bodyFont=e.target.value;loadFont(state.bodyFont);update();});
+  document.getElementById('i-pairing').addEventListener('change',e=>{
+    const p=PAIRINGS[e.target.value];if(!p)return;
+    state.headFont=p.head;state.bodyFont=p.body;loadFont(p.head);loadFont(p.body);
+    fillSelect('i-headfont',FONTS,state.headFont);fillSelect('i-bodyfont',FONTS,state.bodyFont);update();
+  });
+  document.getElementById('i-wordmark').addEventListener('change',e=>{state.wordmark=e.target.value;update();});
+}
+
+function update(){document.getElementById('preview').innerHTML=generateHeroSVG();}
+
+function copySVG(){navigator.clipboard.writeText(generateHeroSVG()).then(()=>alert('SVG copied'));}
+async function downloadPNG(){
+  const svg=generateHeroSVG();
+  try{await document.fonts.ready;}catch(e){}
+  const canvas=document.getElementById('export-canvas');const ctx=canvas.getContext('2d');
+  canvas.width=state.width*2;canvas.height=state.height*2;
+  const img=new Image();
+  const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  img.onload=function(){
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);URL.revokeObjectURL(url);
+    const a=document.createElement('a');a.href=canvas.toDataURL('image/png');
+    a.download='hero-'+(state.title||'untitled').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.png';a.click();
+  };
+  img.src=url;
+}
+
+function init(){
+  renderStyles();renderSizes();renderPalettes();renderFonts();bind();
+  loadFont(state.headFont);loadFont(state.bodyFont);
+  update();
+}
+init();
+</script>
+</body>
+</html>
