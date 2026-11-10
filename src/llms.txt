@@ -1,0 +1,16 @@
+# Diagrammatic
+
+Diagrammatic is a static web app for creating consulting-grade diagrams, tables, matrix charts, and branded hero images.
+
+## Primary Pages
+
+- [Landing page](https://diagrammatic-red.vercel.app/) - product overview, framework library, pricing, and early-access contact.
+- [Diagrammatic Studio](https://diagrammatic-red.vercel.app/app) - browser-based diagram, table, and matrix chart generator.
+- [Hero Generator](https://diagrammatic-red.vercel.app/hero) - branded hero image and social card generator.
+- [Privacy](https://diagrammatic-red.vercel.app/privacy) - static-site privacy summary.
+
+## Machine-Readable Resources
+
+- [Sitemap](https://diagrammatic-red.vercel.app/sitemap.xml)
+- [Robots policy](https://diagrammatic-red.vercel.app/robots.txt)
+- [Full LLM context](https://diagrammatic-red.vercel.app/llms-full.txt)

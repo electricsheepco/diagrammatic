@@ -1,0 +1,18 @@
+# Diagrammatic Full Context
+
+Diagrammatic helps consultants, strategy teams, analysts, transformation leads, MBA students, and framework-heavy thinkers create polished diagrams without rebuilding the same slides by hand.
+
+The public site has three stable routes:
+
+- `/` - product overview and early-access contact.
+- `/app` - the Diagrammatic Studio for consulting frameworks, tables, and matrix charts.
+- `/hero` - the Hero Generator for branded article and social-card visuals using Diagrammatic and Veritatis palettes.
+- `/privacy` - privacy summary for the static site and contact flow.
+
+Brand rule:
+
+- `diagrammatic` is rendered in teal.
+- `.ai` is rendered in orange.
+- The product ownership line is `A Veritatis Product`.
+
+The current application is a static HTML/CSS/JavaScript site deployed on Vercel.

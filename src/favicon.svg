@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Diagrammatic</title>
+  <rect width="64" height="64" rx="12" fill="#156082"/>
+  <path d="M17 18h12v12H17zM35 18h12v12H35zM17 36h12v12H17zM35 36h12v12H35z" fill="#EBF4F7"/>
+  <path d="M29 24h6M23 30v6M41 30v6M29 42h6" stroke="#E07A3D" stroke-width="3" stroke-linecap="round"/>
+</svg>
