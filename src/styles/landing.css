@@ -475,12 +475,10 @@ h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.1; margin-top: 14px; }
 .legal-page h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: var(--space-3); }
 .legal-page h2 { font-size: 1.25rem; margin: var(--space-4) 0 var(--space-1); }
 .legal-page p { color: var(--text-muted); margin-bottom: var(--space-2); }
+/* Inline links in a sentence stay inline. WCAG 2.5.8 exempts them from
+   the target-size minimum, and inline-flex broke the line before them. */
 .legal-page a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  min-width: 44px;
-  justify-content: center;
+  padding-block: 0.6em;
   color: var(--teal);
   font-weight: 600;
 }
