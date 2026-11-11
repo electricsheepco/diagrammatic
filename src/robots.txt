@@ -10,4 +10,4 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-Sitemap: https://diagrammatic-red.vercel.app/sitemap.xml
+Sitemap: https://www.diagrammatic.in/sitemap.xml
