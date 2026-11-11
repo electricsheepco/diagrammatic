@@ -2,14 +2,13 @@
 
 ## Now
 
-- Complete the Website Specification static-site compliance pass.
-- Commit the deployed branding and Hero Generator work.
+- Add the `studio` DNS record for `diagrammatic.in` in Namecheap, then verify the Studio host.
+- Port the Studio redesign look onto `app.html` and `app.css`, and keep all three Studio tabs.
 
 ## Next
 
-- Replace the Formspree placeholder with a real email capture endpoint or remove the waitlist forms.
-- Add custom domain configuration for `diagrammatic.ai`.
-- Improve automated browser/a11y checks once a local browser runtime is available.
+- Replace the temporary `mailto:` early-access flow with a real email capture endpoint.
+- Run Lighthouse and axe checks before a public launch.
 
 ## Later
 
@@ -17,4 +16,3 @@
 - User accounts.
 - Dark mode.
 - Brand kit.
-
