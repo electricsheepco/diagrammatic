@@ -40,155 +40,188 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
+  <!-- Framework icon symbols, referenced by the library grid. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-quad" viewBox="0 0 44 44"><rect x="4" y="4" width="36" height="36"/><path d="M22 4v36M4 22h36"/><circle class="solid" cx="31" cy="13" r="4"/></symbol>
+    <symbol id="i-hex" viewBox="0 0 44 44"><circle cx="22" cy="22" r="5"/><circle cx="22" cy="7" r="3.5"/><circle cx="35" cy="15" r="3.5"/><circle cx="35" cy="29" r="3.5"/><circle cx="22" cy="37" r="3.5"/><circle cx="9" cy="29" r="3.5"/><circle cx="9" cy="15" r="3.5"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 44 44"><path d="M3 14h9l5 8-5 8H3l5-8zM16 14h9l5 8-5 8h-9l5-8zM29 14h9l5 8-5 8h-9l5-8z"/></symbol>
+    <symbol id="i-curve" viewBox="0 0 44 44"><path d="M4 40h36M4 4v36"/><path d="M6 36C16 35 20 28 24 20s8-12 16-13"/><circle class="solid" cx="24" cy="20" r="2"/></symbol>
+    <symbol id="i-horizons" viewBox="0 0 44 44"><path d="M4 40h36"/><path d="M4 30c8-10 14-12 20-12M8 38c10-18 20-24 32-26M14 40c8-22 16-34 26-36"/></symbol>
+    <symbol id="i-tri" viewBox="0 0 44 44"><path d="M22 5L40 38H4z"/><path d="M15 18h14M10 28h24"/></symbol>
+    <symbol id="i-table" viewBox="0 0 44 44"><rect x="4" y="8" width="36" height="28"/><path d="M4 16h36M16 8v28M28 8v28"/><circle class="solid" cx="22" cy="26" r="2"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 44 44"><rect x="17" y="4" width="10" height="7"/><rect x="4" y="33" width="10" height="7"/><rect x="30" y="33" width="10" height="7"/><path d="M22 11v10M9 33V21h26v12"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 44 44"><rect x="3" y="17" width="10" height="10"/><path d="M22 15l7 7-7 7-7-7z"/><rect x="31" y="17" width="10" height="10"/><path d="M13 22h2M29 22h2"/></symbol>
+    <symbol id="i-scatter" viewBox="0 0 44 44"><path d="M4 40h36M4 4v36"/><circle cx="12" cy="30" r="3"/><circle class="solid" cx="20" cy="18" r="5"/><circle cx="32" cy="12" r="3"/><circle cx="32" cy="30" r="4"/></symbol>
+    <symbol id="i-kano" viewBox="0 0 44 44"><path d="M22 4v36M4 22h36"/><path d="M6 38L38 6M6 32c12-2 20-10 30-28M8 40c4-12 14-22 30-30" opacity=".6"/></symbol>
+  </svg>
+
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a href="/" class="site-logo brand-mark" aria-label="diagrammatic.ai">
         <span class="brand-mark__name">diagrammatic</span><span class="brand-mark__suffix">.ai</span>
       </a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="#frameworks">Frameworks</a>
-        <a href="/hero">Hero Generator</a>
-        <a href="#pricing">Pricing</a>
-        <a href="/app" class="nav-cta">Try It →</a>
+        <a class="nav-section" href="#frameworks">Frameworks</a>
+        <a class="nav-section" href="#how">How it works</a>
+        <a class="nav-section" href="#pricing">Pricing</a>
+        <a class="nav-section" href="/hero">Hero Generator</a>
+        <a class="btn btn-dark" href="/app">Try It →</a>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>
-        <span class="reveal" data-delay="0">Consulting-grade diagrams.</span><br>
-        <span class="reveal" data-delay="120" style="color:var(--teal)">Instantly.</span>
-      </h1>
-      <p class="subtitle reveal" data-delay="240">
-        Stop rebuilding the same BCG matrix in PowerPoint.
-        Pick a framework, fill in your content, export in seconds.
-      </p>
-      <form class="email-form reveal" data-delay="360"
-            action="mailto:hello@diagrammatic.ai?subject=Diagrammatic%20early%20access" method="post" enctype="text/plain">
-        <label class="sr-only" for="hero-email">Email address</label>
-        <input id="hero-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" enterkeyhint="send" required aria-describedby="hero-email-note">
-        <button type="submit" class="btn-hero">Get Early Access →</button>
-        <p class="form-note" id="hero-email-note">Free while in beta. No credit card required.</p>
-      </form>
-    </div>
-  </section>
-
   <main id="main-content">
-  <section class="how-it-works">
-    <div class="section-inner">
-      <h2 class="section-heading reveal">How It Works</h2>
-      <div class="steps">
-        <div class="step reveal"><div class="step-number">1</div><h3>Choose a framework</h3><p>BCG matrix, value chain, maturity curve — pick from 20+ consulting standards.</p></div>
-        <div class="step reveal"><div class="step-number">2</div><h3>Add your content</h3><p>Labels, data, colors. We handle the layout and visual hierarchy.</p></div>
-        <div class="step reveal"><div class="step-number">3</div><h3>Export anywhere</h3><p>PNG, SVG, PPTX. Drop into your deck, report, or publication.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="frameworks" id="frameworks">
-    <div class="section-inner">
-      <h2 class="section-heading reveal">The Framework Library</h2>
-      <p class="section-subhead reveal">The classics, ready in seconds.</p>
-      <div class="framework-grid reveal">
-        <div class="framework-item">BCG Matrix</div>
-        <div class="framework-item">McKinsey 7S</div>
-        <div class="framework-item">Value Chain</div>
-        <div class="framework-item">Prioritization Matrix</div>
-        <div class="framework-item">Maturity Curve</div>
-        <div class="framework-item">Three Horizons</div>
-        <div class="framework-item">SWOT</div>
-        <div class="framework-item">Ansoff Matrix</div>
-        <div class="framework-item">RACI Matrix</div>
-        <div class="framework-item">Pyramid / MECE</div>
-        <div class="framework-item">Stakeholder Map</div>
-        <div class="framework-item">Kano Model</div>
-        <div class="framework-item">Decision Tree</div>
-        <div class="framework-item">Competitive Map</div>
-        <div class="framework-item">Process Flow</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="audience">
-    <div class="section-inner">
-      <h2 class="section-heading reveal">Built for people who think in frameworks</h2>
-      <div class="audience-list reveal">
-        <span class="audience-item">Solo consultants</span>
-        <span class="audience-item">Strategy teams</span>
-        <span class="audience-item">GCC practitioners</span>
-        <span class="audience-item">MBA students</span>
-        <span class="audience-item">Transformation leads</span>
-        <span class="audience-item">Analysts</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="pricing" id="pricing">
-    <div class="section-inner">
-      <h2 class="section-heading reveal">Start free. Scale when ready.</h2>
-      <div class="pricing-grid">
-
-        <div class="pricing-card reveal">
-          <div class="pricing-badge pricing-badge--amber">Limited Time</div>
-          <div class="pricing-name">Founding Member</div>
-          <div class="pricing-founding">Early Adopter</div>
-          <p class="pricing-desc">Lock in a lifetime discount before we launch publicly.</p>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> 5 exports / month</li>
-            <li><span class="check">✓</span> PNG export</li>
-            <li><span class="check">✓</span> Watermark</li>
-            <li><span class="check">✓</span> All framework presets</li>
-          </ul>
-          <a class="pricing-cta pricing-cta--secondary" href="#early-access">Join Waitlist</a>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div>
+          <h1 id="hero-title" class="reveal" data-delay="120">Consulting-grade diagrams.<br><em>Instantly.</em></h1>
+          <p class="lede reveal" data-delay="240">Stop rebuilding the same BCG matrix in PowerPoint. Pick a framework, fill in your content, export in seconds.</p>
+          <form class="email-form reveal" data-delay="360"
+                action="mailto:hello@diagrammatic.ai?subject=Diagrammatic%20early%20access" method="post" enctype="text/plain">
+            <label class="sr-only" for="hero-email">Email address</label>
+            <input id="hero-email" type="email" name="email" placeholder="Work email" autocomplete="email" enterkeyhint="send" required aria-describedby="hero-email-note">
+            <button type="submit" class="btn btn-dark">Get Early Access →</button>
+          </form>
+          <p class="fine reveal" data-delay="440" id="hero-email-note">Free while in beta. No credit card required.</p>
         </div>
 
-        <div class="pricing-card pricing-card--featured reveal">
-          <div class="pricing-badge pricing-badge--teal">Most Popular</div>
-          <div class="pricing-name">Pro</div>
-          <div class="pricing-price"><sup>$</sup>12<span> / mo</span></div>
-          <p class="pricing-desc">Everything you need to ship consulting-grade diagrams at speed.</p>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> Unlimited exports</li>
-            <li><span class="check">✓</span> No watermark</li>
-            <li><span class="check">✓</span> PNG + SVG + PPTX</li>
-            <li><span class="check">✓</span> Brand kit</li>
-            <li><span class="check">✓</span> All framework presets</li>
-          </ul>
-          <a class="pricing-cta pricing-cta--primary" href="#early-access">Get Early Access</a>
+        <div class="window" aria-hidden="true">
+          <div class="window-bar">
+            <span class="window-dots"><i></i><i></i><i></i></span>
+            <span class="window-tabs"><span class="on">BCG Matrix</span><span>Value Chain</span><span>7S</span></span>
+            <span class="window-export">EXPORT .PNG</span>
+          </div>
+          <div class="window-body">
+            <div class="window-side">
+              <small>FRAMEWORK</small><span class="on">BCG Matrix</span><span>Ansoff Matrix</span><span>Three Horizons</span>
+            </div>
+            <div class="window-stage">
+              <svg viewBox="0 0 400 300" font-family="Inter, Helvetica Neue, sans-serif">
+                <rect x="40" y="10" width="170" height="125" fill="#F4F6FA"/><rect x="215" y="10" width="170" height="125" fill="#EBF4F7"/>
+                <rect x="40" y="140" width="170" height="125" fill="#FBF3EC"/><rect x="215" y="140" width="170" height="125" fill="#F4F6FA"/>
+                <g font-size="10" font-weight="600" fill="#4A5568" letter-spacing=".5">
+                  <text x="52" y="28">QUESTION MARKS</text><text x="227" y="28" fill="#156082">STARS</text>
+                  <text x="52" y="158">DOGS</text><text x="227" y="158">CASH COWS</text>
+                </g>
+                <g font-size="8.5" fill="#4A5568">
+                  <text x="20" y="140" transform="rotate(-90 20 140)" text-anchor="middle">MARKET GROWTH →</text>
+                  <text x="212" y="285" text-anchor="middle">RELATIVE MARKET SHARE →</text>
+                </g>
+                <circle class="bubble" style="animation-delay:.7s" cx="300" cy="75" r="30" fill="#156082" opacity=".9"/>
+                <circle class="bubble" style="animation-delay:.85s" cx="250" cy="105" r="14" fill="#156082" opacity=".55"/>
+                <circle class="bubble" style="animation-delay:1s" cx="120" cy="80" r="18" fill="#1A1A2E" opacity=".75"/>
+                <circle class="bubble" style="animation-delay:1.15s" cx="320" cy="205" r="36" fill="#4A9E6B" opacity=".85"/>
+                <circle class="bubble" style="animation-delay:1.3s" cx="110" cy="215" r="11" fill="#E07A3D"/>
+                <g font-size="9" fill="#fff" font-weight="600" text-anchor="middle"><text x="300" y="78">Cloud</text><text x="320" y="208">Core</text></g>
+              </svg>
+            </div>
+          </div>
         </div>
-
-        <div class="pricing-card reveal">
-          <div class="pricing-name">Team</div>
-          <div class="pricing-price"><sup>$</sup>29<span> / mo</span></div>
-          <p class="pricing-desc">For teams that collaborate on strategy and ship decks together.</p>
-          <ul class="pricing-features">
-            <li><span class="check">✓</span> Everything in Pro</li>
-            <li><span class="check">✓</span> Shared templates</li>
-            <li><span class="check">✓</span> API access</li>
-            <li><span class="check">✓</span> Priority support</li>
-          </ul>
-          <a class="pricing-cta pricing-cta--secondary" href="#early-access">Get Early Access</a>
-        </div>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="cta-section" id="early-access">
-    <h2>Ready to ship better diagrams?</h2>
-    <p>Join the beta and never rebuild a BCG matrix from scratch again.</p>
-    <form class="email-form" action="mailto:hello@diagrammatic.ai?subject=Diagrammatic%20early%20access" method="post" enctype="text/plain">
-      <label class="sr-only" for="cta-email">Email address</label>
-      <input id="cta-email" type="email" name="email" placeholder="you@company.com" autocomplete="email" enterkeyhint="send" required>
-      <button type="submit" class="btn-hero">Get Early Access →</button>
-    </form>
-  </section>
+    <section class="audience" aria-labelledby="audience-title">
+      <div class="wrap">
+        <h2 id="audience-title">Built for people who think in frameworks</h2>
+        <ul>
+          <li>Solo consultants</li><li>Strategy teams</li><li>GCC practitioners</li>
+          <li>MBA students</li><li>Transformation leads</li><li>Analysts</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="block-head reveal">
+          <h2 id="how-title">How It Works</h2>
+        </div>
+        <ol class="steps reveal">
+          <li class="step"><div class="step-number">1</div><h3>Choose a framework</h3><p>BCG matrix, value chain, maturity curve — pick from 20+ consulting standards.</p></li>
+          <li class="step"><div class="step-number">2</div><h3>Add your content</h3><p>Labels, data, colors. We handle the layout and visual hierarchy.</p></li>
+          <li class="step"><div class="step-number">3</div><h3>Export anywhere</h3><p>PNG, SVG, PPTX. Drop into your deck, report, or publication.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="block frameworks" id="frameworks" aria-labelledby="frameworks-title">
+      <div class="wrap">
+        <div class="block-head reveal">
+          <div><h2 id="frameworks-title">The Framework Library</h2><p class="lede">The classics, ready in seconds.</p></div>
+        </div>
+        <ul class="framework-grid reveal">
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-quad"/></svg><div><em>Portfolio</em><span>BCG Matrix</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-hex"/></svg><div><em>Organisation</em><span>McKinsey 7S</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-chev"/></svg><div><em>Operations</em><span>Value Chain</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-quad"/></svg><div><em>Decision</em><span>Prioritization Matrix</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-curve"/></svg><div><em>Capability</em><span>Maturity Curve</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-horizons"/></svg><div><em>Growth</em><span>Three Horizons</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-quad"/></svg><div><em>Strategy</em><span>SWOT</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-quad"/></svg><div><em>Growth</em><span>Ansoff Matrix</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-table"/></svg><div><em>Governance</em><span>RACI Matrix</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-tri"/></svg><div><em>Structuring</em><span>Pyramid / MECE</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-scatter"/></svg><div><em>Change</em><span>Stakeholder Map</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-kano"/></svg><div><em>Product</em><span>Kano Model</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-tree"/></svg><div><em>Decision</em><span>Decision Tree</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-scatter"/></svg><div><em>Market</em><span>Competitive Map</span></div></li>
+          <li class="framework-item"><svg aria-hidden="true"><use href="#i-flow"/></svg><div><em>Operations</em><span>Process Flow</span></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <div class="block-head reveal">
+          <h2 id="pricing-title">Start free. Scale when ready.</h2>
+        </div>
+        <div class="plans reveal">
+          <div class="plan">
+            <div class="plan-tag">Founding Member <b>Limited Time</b></div>
+            <h3>Early Adopter</h3>
+            <p class="plan-desc">Lock in a lifetime discount before we launch publicly.</p>
+            <ul><li>5 exports / month</li><li>PNG export</li><li>Watermark</li><li>All framework presets</li></ul>
+            <a class="btn btn-ghost" href="#early-access">Join Waitlist</a>
+          </div>
+          <div class="plan plan--featured">
+            <div class="plan-tag"><b>Most Popular</b></div>
+            <h3>Pro</h3>
+            <div class="plan-price">$12 <small>/ mo</small></div>
+            <p class="plan-desc">Everything you need to ship consulting-grade diagrams at speed.</p>
+            <ul><li>Unlimited exports</li><li>No watermark</li><li>PNG + SVG + PPTX</li><li>Brand kit</li><li>All framework presets</li></ul>
+            <a class="btn" href="#early-access">Get Early Access</a>
+          </div>
+          <div class="plan">
+            <h3>Team</h3>
+            <div class="plan-price">$29 <small>/ mo</small></div>
+            <p class="plan-desc">For teams that collaborate on strategy and ship decks together.</p>
+            <ul><li>Everything in Pro</li><li>Shared templates</li><li>API access</li><li>Priority support</li></ul>
+            <a class="btn btn-ghost" href="#early-access">Get Early Access</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="early-access" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="cta-box reveal">
+          <div>
+            <h2 id="cta-title">Ready to ship better diagrams?</h2>
+            <p>Join the beta and never rebuild a BCG matrix from scratch again.</p>
+          </div>
+          <form class="email-form" action="mailto:hello@diagrammatic.ai?subject=Diagrammatic%20early%20access" method="post" enctype="text/plain">
+            <label class="sr-only" for="cta-email">Email address</label>
+            <input id="cta-email" type="email" name="email" placeholder="Work email" autocomplete="email" enterkeyhint="send" required>
+            <button type="submit" class="btn btn-dark">Get Early Access →</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
-    <span>© 2026 Diagrammatic. A Veritatis Product.</span>
-    <span><a href="/privacy">Privacy</a> · <a href="mailto:hello@diagrammatic.ai">Contact</a></span>
+    <div class="wrap">
+      <span>© 2026 Diagrammatic. A Veritatis Product.</span>
+      <span><a href="/privacy">Privacy</a><a href="mailto:hello@diagrammatic.ai">Contact</a></span>
+    </div>
   </footer>
 
   <script src="js/animations.js" defer></script>

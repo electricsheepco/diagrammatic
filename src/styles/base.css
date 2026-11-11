@@ -25,6 +25,7 @@
   --bg:         #FAFBFC;
   --white:      #FFFFFF;
   --border:     #E2E8F0;
+  --border-soft: #EEF1F5;
 
   --coral:  #E07A5F;
   --orange: #E07A3D;
@@ -55,6 +56,9 @@
 
   /* ── Typography ── */
   --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* System stacks: no extra font request and no CSP change. */
+  --font-serif: 'Iowan Old Style', Charter, 'Source Serif Pro', Georgia, serif;
+  --font-mono:  'SF Mono', 'JetBrains Mono', Menlo, monospace;
   --text-xs:   11px;
   --text-sm:   13px;
   --text-base: 16px;
